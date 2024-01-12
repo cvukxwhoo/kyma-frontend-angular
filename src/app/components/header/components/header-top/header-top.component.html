@@ -1,0 +1,51 @@
+<div class="header-top">
+  <div class="header-top-container">
+    <a href="" class="header-logo">
+      <img
+        [style.maxWidth.px]="'1090'"
+        id="logo"
+        src="../../../../../assets/img/logo/kyma.jpg"
+        alt=""
+      />
+    </a>
+    <form class="header-search flex">
+      <input class="header-input-search" type="text" placeholder="Tìm kiếm" />
+      <button class="header-btn-search" type="submit">
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+    <div class="header-right flex">
+      <a (click)="handleSignIn()" class="header-signIn flex">
+        <div class="header-avt">
+          <img
+            id="header-avt"
+            src="../../../../../assets/img/logo/kyma.jpg"
+            alt=""
+          />
+        </div>
+        <div class="header-signIn">
+          <div *ngIf="!isSignHidden" class="signInHidden flex">
+            <h3 [style.marginTop.px]="'10'">Đăng nhập tài khoản</h3>
+            <button [style.color]="'#fff'" [style.background]="'#f15928'">
+              Đăng nhập
+            </button>
+            <button>Tạo tài khoản</button>
+          </div>
+          <div [style.texxtAlign]="'center'">
+            <div>Đăng nhập</div>
+            <div>Tài khoản</div>
+          </div>
+          <mat-icon *ngIf="isSignHidden">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="!isSignHidden">keyboard_arrow_up</mat-icon>
+        </div>
+      </a>
+      <a class="header-shopping flex">
+        <div class="shopping-cart">
+          <mat-icon>shopping_cart</mat-icon>
+        </div>
+        <div>Giỏ Hàng</div>
+        <mat-icon>keyboard_arrow_down</mat-icon>
+      </a>
+    </div>
+  </div>
+</div>

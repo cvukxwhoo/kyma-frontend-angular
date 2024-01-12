@@ -1,0 +1,10 @@
+<div class="container-types-product container">
+  <div class="types-product-wrapper">
+    <div *ngFor="let product of listProduct" class="type-product">
+      <a href="">
+        <img [src]="product.img" alt="" />
+        <h3>{{ product.title }}</h3>
+      </a>
+    </div>
+  </div>
+</div>

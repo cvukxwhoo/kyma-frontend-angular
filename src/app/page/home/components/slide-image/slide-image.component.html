@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <div class="slider" *ngFor="let slide of slides; let i = index">
+    <ng-container class="flex" [ngSwitch]="i === currentSlideIndex">
+      <a [href]="slide.href" *ngSwitchCase="true">
+        <img [src]="slide.imageUrl" alt="Slide 1" />
+      </a>
+    </ng-container>
+  </div>
+</div>
+<!-- <button class="btn-switch left" (click)="prevSlide()">
+    <mat-icon>keyboard_arrow_left</mat-icon>
+  </button>
+  <button class="btn-switch right" (click)="nextSlide()">
+    <mat-icon>keyboard_arrow_right</mat-icon>
+  </button> -->
