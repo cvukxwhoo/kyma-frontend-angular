@@ -14,6 +14,17 @@ import { HeaderTopComponent } from './components/header/components/header-top/he
 import { HeaderBottomComponent } from './components/header/components/header-bottom/header-bottom.component';
 import { SlideImageComponent } from './page/home/components/slide-image/slide-image.component';
 import { TypeProductComponent } from './page/home/components/type-product/type-product.component';
+import { LoginComponent } from './page/login/login.component';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -25,12 +36,18 @@ import { TypeProductComponent } from './page/home/components/type-product/type-p
     HeaderBottomComponent,
     SlideImageComponent,
     TypeProductComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
