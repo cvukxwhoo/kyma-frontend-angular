@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './page/home/home.component';
 import { NotFoundComponent } from './page/not-found/not-found.component';
+import { ProductsComponent } from './page/products/products.component';
+import { CartComponent } from './page/cart/cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // module
@@ -15,16 +17,13 @@ import { HeaderBottomComponent } from './components/header/components/header-bot
 import { SlideImageComponent } from './page/home/components/slide-image/slide-image.component';
 import { TypeProductComponent } from './page/home/components/type-product/type-product.component';
 import { LoginComponent } from './page/login/login.component';
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { RightCartComponent } from './page/cart/components/right-cart/right-cart.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +36,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     SlideImageComponent,
     TypeProductComponent,
     LoginComponent,
+    ProductsComponent,
+    CartComponent,
+    RightCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     FormsModule,
     ReactiveFormsModule,
     MatTabsModule,
+    MatSelectModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

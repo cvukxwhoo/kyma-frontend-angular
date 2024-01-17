@@ -1,0 +1,243 @@
+<div class="right-side">
+  <h3>THÔNG TIN NGƯỜI MUA HÀNG</h3>
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div
+      *ngIf="
+        paymentForm.get('fullName').touched ||
+        paymentForm.get('email').touched ||
+        paymentForm.get('phoneNumber').touched ||
+        paymentForm.get('address').touched
+      "
+    >
+      <div
+        style="color: red"
+        *ngIf="
+          paymentForm.get('fullName').hasError('required') ||
+          paymentForm.get('email').hasError('required') ||
+          paymentForm.get('phoneNumber').hasError('required') ||
+          paymentForm.get('address').hasError('required')
+        "
+        class="error-message"
+      >
+        Vui lòng điền đầy đủ thông tin
+      </div>
+    </div>
+
+    <!-- Email format -->
+    <div style="color: red" *ngIf="paymentForm.get('email').hasError('email')">
+      Chưa đúng định dạng email
+    </div>
+
+    <!-- Phone Number -->
+    <div
+      style="color: red"
+      *ngIf="paymentForm.get('phoneNumber').hasError('minlength')"
+      class="error-message"
+    >
+      Không nhập ít hơn 8 số
+    </div>
+    <div
+      style="color: red"
+      *ngIf="paymentForm.get('phoneNumber').hasError('maxlength')"
+      class="error-message"
+    >
+      Không nhập hơn 12 số
+    </div>
+
+    <div class="info-buyer">
+      <div class="info-left">
+        <!-- FULLNAME -->
+        <div>
+          <input
+            type="text"
+            id="fullName"
+            placeholder="Họ và tên(*)"
+            formControlName="fullName"
+          />
+        </div>
+        <!-- END FULLNAME -->
+
+        <!-- EMAIL -->
+        <div>
+          <input
+            type="text"
+            id="email"
+            placeholder="Email(*)"
+            formControlName="email"
+          />
+        </div>
+        <!-- END EMAIL -->
+      </div>
+      <!-- END INFO LEFT -->
+
+      <!-- INFOR RIGHT -->
+      <div class="info-right">
+        <!-- PHONE NUMBER -->
+        <div>
+          <input
+            type="text"
+            id="phoneNumber"
+            formControlName="phoneNumber"
+            placeholder="Số điện thoại(*)"
+          />
+        </div>
+        <!-- END NUMBER -->
+
+        <!-- ADDRESS -->
+
+        <div>
+          <input
+            type="text"
+            id="address"
+            placeholder="Địa chỉ(*)"
+            formControlName="address"
+          />
+        </div>
+      </div>
+      <!-- END ADDRESS -->
+    </div>
+
+    <!-- END INFOR BUYER -->
+
+    <!-- RADIO DELIVER -->
+    <div [style.padding.px]="'10px 0'" class="radio-container flex">
+      <label [style.flex]="'1'">
+        <input type="radio" formControlName="deliveryMethod" value="delivery" />
+        Giao hàng tận nơi
+      </label>
+
+      <label [style.flex]="'1'">
+        <input type="radio" formControlName="deliveryMethod" value="showroom" />
+        Nhận hàng tại showroom
+      </label>
+    </div>
+    <div
+      style="color: red"
+      *ngIf="paymentForm.get('deliveryMethod').hasError('required')"
+      class="error-message"
+    >
+      Cần chọn cách thức giao hàng
+    </div>
+    <!-- END RADIO DELIVER -->
+
+    <!-- INVOICE -->
+    <div [style.padding.px]="'10px 0'" class="invoice-container flex">
+      <label class="flex-1">
+        <input
+          type="checkbox"
+          formControlName="buyerCompany"
+          (change)="onCheckboxChange('buyerCompany')"
+        />
+        Xuất hoá đơn công ty
+      </label>
+      <label class="flex-1">
+        <input
+          type="checkbox"
+          formControlName="buyerIndividual"
+          (change)="onCheckboxChange('buyerIndividual')"
+        />
+        Xuất hoá đơn khách lẻ
+      </label>
+    </div>
+
+    <!-- INFOR COMPANY(IF HAVE) -->
+    <div
+      *ngIf="
+        paymentForm.get('buyerCompany').value === true &&
+        paymentForm.get('buyerIndividual').value === false
+      "
+    >
+      <div [style.gap]="'5px'" class="flex">
+        <div class="flex-1">
+          <input
+            type="text"
+            id="companyName"
+            formControlName="companyName"
+            placeholder="Tên công ty(*)"
+          />
+          <div
+            style="color: red"
+            *ngIf="paymentForm.get('companyName').hasError('required')"
+            class="error-message"
+          >
+            Cần điền tên công ty
+          </div>
+        </div>
+        <div class="flex-1">
+          <input
+            type="text"
+            id="taxCode"
+            formControlName="taxCode"
+            placeholder="Mã số thuế"
+          />
+          <div
+            style="color: red"
+            *ngIf="paymentForm.get('taxCode').hasError('required')"
+            class="error-message"
+          >
+            Cần điền mã số thuế
+          </div>
+        </div>
+      </div>
+      <div>
+        <input
+          type="text"
+          id="addressCompany"
+          formControlName="addressCompany"
+          placeholder="Địa chỉ(*)"
+        />
+        <div
+          style="color: red"
+          *ngIf="paymentForm.get('addressCompany').hasError('required')"
+          class="error-message"
+        >
+          Cần điền địa chỉ công ty
+        </div>
+      </div>
+    </div>
+    <!-- END INFOR COMPANY -->
+
+    <!-- TEXT AREA -->
+    <div>
+      <textarea
+        [style.width]="'100%'"
+        id="textareaContent"
+        formControlName="textareaContent"
+        placeholder="Ghi chú đơn hàng..."
+      ></textarea>
+    </div>
+
+    <!-- PAYMENTS -->
+    <div class="payments">
+      <h3>HÌNH THỨC THANH TOÁN</h3>
+      <div>
+        <div>
+          <input type="radio" formControlName="payments" value="cod" />
+          Thanh toán sau khi nhận hàng (COD)
+        </div>
+
+        <div>
+          <input type="radio" formControlName="payments" value="banking" />
+          Chuyển khoản Ngân hàng
+        </div>
+
+        <div>
+          <input type="radio" formControlName="payments" value="atm" />
+          Giao hàng tận nơi
+        </div>
+      </div>
+
+      <div
+        style="color: red"
+        *ngIf="paymentForm.get('payments').hasError('required')"
+        class="error-message"
+      >
+        Cần chọn hình thức thanh toán
+      </div>
+    </div>
+
+    <!-- END INVOICE -->
+
+    <button type="submit" [disabled]="paymentForm.invalid">Submit</button>
+  </form>
+</div>

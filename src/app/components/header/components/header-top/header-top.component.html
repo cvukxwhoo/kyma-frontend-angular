@@ -26,7 +26,11 @@
         <div class="header-signIn">
           <div *ngIf="!isSignHidden" class="signInHidden flex">
             <h3 [style.marginTop.px]="'10'">Đăng nhập tài khoản</h3>
-            <button [style.color]="'#fff'" [style.background]="'#f15928'">
+            <button
+              (click)="changeDirectLogin()"
+              [style.color]="'#fff'"
+              [style.background]="'#f15928'"
+            >
               Đăng nhập
             </button>
             <button>Tạo tài khoản</button>
@@ -40,7 +44,7 @@
         </div>
       </a>
       <a class="header-shopping flex">
-        <div class="shopping-cart">
+        <div [style.display]="'flex'" class="shopping-cart">
           <mat-icon>shopping_cart</mat-icon>
         </div>
         <div>Giỏ Hàng</div>
