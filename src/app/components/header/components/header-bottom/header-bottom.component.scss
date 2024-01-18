@@ -74,6 +74,10 @@
   transition: 0.8s;
 }
 
-.nav-hidden :hover {
+.nav-hidden:hover {
   background-color: #eee;
+
+  &a {
+    text-decoration: underline;
+  }
 }

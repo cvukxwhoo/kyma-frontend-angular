@@ -9,9 +9,10 @@
     background: #fff;
     margin: 0px -5px 0 -5px;
     padding: 1px;
+    margin-top: 20px;
+    list-style: none;
 
-    product-items {
-      list-style: none;
+    .product-items {
       padding-bottom: 40px;
       width: calc((100% / 4) - 10px);
       margin: 5px 5px 5px 5px;
@@ -19,19 +20,57 @@
       border-style: solid;
       border-width: 1px;
       border-radius: 18px;
-      position: relative;
 
       .img-item {
-        position: absolute;
-        background-image: url(/Images/ic_km.png);
         background-repeat: no-repeat;
-        top: 0;
-        left: 0;
         height: 30px;
         width: 140px;
         background-size: 140px;
         font-size: 12px;
         z-index: 100;
+
+        img {
+          width: 200px;
+          height: 200px;
+          display: inline-block;
+          max-width: 100%;
+          max-height: 100%;
+          margin: 0 auto;
+        }
+      }
+
+      .title-item {
+        text-decoration: none;
+      }
+
+      .price-item {
+        margin: 0 0 16px;
+      }
+
+      .button-item {
+        justify-content: center;
+
+        .buy-button {
+          border: 1px solid #de2a2b;
+          color: #de2a2b;
+        }
+
+        .installment-button {
+          color: #0090fd;
+          border: 1px solid #0090fd;
+        }
+
+        button {
+          padding: 3px 10px;
+          line-height: 20px;
+          font-size: 12px;
+          border-radius: 4px;
+          margin: 0px 3px;
+          text-align: center;
+          width: 100px;
+          background: #fff;
+          cursor: pointer;
+        }
       }
     }
   }

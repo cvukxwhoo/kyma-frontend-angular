@@ -5,28 +5,28 @@
       <div class="product-item">
         <a class="img-item" href="">
           <img
-            src="../../../assets/img/type-product/may-quay-phim.jpg"
+            src="https://kyma.vn/StoreData/images/Product/may-anh-canon-eos-r50-kit-rfs18-45mm-f45-63-is-stm.webp"
             alt=""
           />
         </a>
-        <a href="">
-          <h3>title</h3>
+        <a class="title-item" href="">
+          <h3 [style.color]="'#000'">
+            Máy ảnh Canon EOS R50 Kit RF-S18-45mm F4.5-6.3 IS STM
+          </h3>
         </a>
         <div class="price-item flex">
-          <span
-            >price
-            <i>đ</i>
+          <span [style.color]="'red'" [style.font-size.px]="18"
+            >17,990,000
           </span>
-          <span
-            ><del
-              >priceDiscount
-              <i>đ</i>
-            </del></span
-          >
+          <i [style.color]="'red'">đ</i>
+          <del>
+            <span [style.margin-left.px]="'10'">30,000,000</span>
+            <i>đ</i>
+          </del>
         </div>
         <div class="button-item flex">
-          <button>Mua</button>
-          <button>Trả góp</button>
+          <button class="buy-button">Mua</button>
+          <button class="installment-button">Trả góp</button>
         </div>
       </div>
     </li>
