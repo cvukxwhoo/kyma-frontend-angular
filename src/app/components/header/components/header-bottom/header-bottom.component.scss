@@ -73,3 +73,7 @@
   cursor: pointer;
   transition: 0.8s;
 }
+
+.nav-hidden :hover {
+  background-color: #eee;
+}

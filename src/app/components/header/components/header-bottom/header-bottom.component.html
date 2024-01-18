@@ -78,7 +78,7 @@
             <mat-icon *ngIf="!isCameraAccessory">arrow_drop_up</mat-icon></a
           >
         </div>
-        <u
+        <ul
           (mouseleave)="hideSubmenuOnMouseLeave()"
           l
           *ngIf="!isCameraAccessory"
@@ -92,7 +92,7 @@
               cameraAccessory.title
             }}</a>
           </li>
-        </u>
+        </ul>
       </li>
 
       <!-- STUDIO EQUIPMENT -->
@@ -104,7 +104,7 @@
             <mat-icon *ngIf="!isStudioEquipment">arrow_drop_up</mat-icon>
           </a>
         </div>
-        <u
+        <ul
           (mouseleave)="hideSubmenuOnMouseLeave()"
           l
           *ngIf="!isStudioEquipment"
@@ -118,7 +118,7 @@
               studioEquipment.title
             }}</a>
           </li>
-        </u>
+        </ul>
       </li>
 
       <!-- SOUND -->
