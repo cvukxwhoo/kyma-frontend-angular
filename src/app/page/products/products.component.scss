@@ -13,6 +13,7 @@
     list-style: none;
 
     .product-items {
+      padding: 0 15px;
       padding-bottom: 40px;
       width: calc((100% / 4) - 10px);
       margin: 5px 5px 5px 5px;
@@ -22,12 +23,13 @@
       border-radius: 18px;
 
       .img-item {
+        text-align: center;
+        margin-bottom: 5px;
         background-repeat: no-repeat;
-        height: 30px;
-        width: 140px;
         background-size: 140px;
         font-size: 12px;
         z-index: 100;
+        margin: 0 auto;
 
         img {
           width: 200px;
@@ -74,4 +76,8 @@
       }
     }
   }
+}
+
+.product-items > .product-item > .title-item:hover > h3 {
+  color: #ff4800;
 }

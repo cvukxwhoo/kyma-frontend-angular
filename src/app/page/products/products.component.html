@@ -1,26 +1,23 @@
 <app-header></app-header>
 <div class="product-container">
   <ul class="product-list">
-    <li class="product-items">
+    <li *ngFor="let product of products" class="product-items">
       <div class="product-item">
-        <a class="img-item" href="">
-          <img
-            src="https://kyma.vn/StoreData/images/Product/may-anh-canon-eos-r50-kit-rfs18-45mm-f45-63-is-stm.webp"
-            alt=""
-          />
-        </a>
+        <div class="img-item" href="">
+          <img [src]="product.imageUrl" alt="" />
+        </div>
         <a class="title-item" href="">
-          <h3 [style.color]="'#000'">
-            Máy ảnh Canon EOS R50 Kit RF-S18-45mm F4.5-6.3 IS STM
-          </h3>
+          <h3 [style.color]="'#000'">{{ product.title }}</h3>
         </a>
         <div class="price-item flex">
           <span [style.color]="'red'" [style.font-size.px]="18"
-            >17,990,000
+            >{{ product.discountPrice | priceFormat }}
           </span>
           <i [style.color]="'red'">đ</i>
           <del>
-            <span [style.margin-left.px]="'10'">30,000,000</span>
+            <span [style.margin-left.px]="'10'">{{
+              product.price | priceFormat
+            }}</span>
             <i>đ</i>
           </del>
         </div>

@@ -25,6 +25,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { RightCartComponent } from './page/cart/components/right-cart/right-cart.component';
+import { PriceFormatPipe } from './pipe/price-format.pipe';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { RightCartComponent } from './page/cart/components/right-cart/right-cart
     ProductsComponent,
     CartComponent,
     RightCartComponent,
+    PriceFormatPipe,
   ],
   imports: [
     BrowserModule,
