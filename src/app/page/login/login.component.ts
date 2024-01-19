@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
+import { CookiesService } from 'src/app/services/cookies.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +14,12 @@ export class LoginComponent implements OnInit {
   registerForm: FormGroup;
   selectedTab = 0;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private cookiesService: CookiesService
+  ) {
     this.createFormLogin();
     this.createFormRegister();
   }
@@ -21,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.selectedTab = 1 - this.selectedTab; // Toggle between 0 and 1
   }
 
+  // FORM LOGIN
   createFormLogin() {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -36,6 +45,7 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
+  // REGISTER FORM
   createFormRegister() {
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -60,5 +70,33 @@ export class LoginComponent implements OnInit {
   }
   get fullnameRegisterFormControl() {
     return this.registerForm.get('fullName');
+  }
+
+  signUp() {
+    this.authService.signUp(this.registerForm.value).subscribe({
+      next: (res) => {
+        alert('Sign Up Successfully. Please Log In!');
+        this.registerForm.reset();
+        location.reload();
+      },
+      error: (error) => {
+        console.error('Error during sign-up:', error);
+        alert('Email has existed');
+      },
+    });
+  }
+
+  signIn() {
+    this.authService.signIn(this.loginForm.value).subscribe({
+      next: (res) => {
+        this.cookiesService.setToken(String(res.data), 7);
+        alert('Login Successfully!');
+        this.loginForm.reset();
+        this.router.navigate(['']);
+      },
+      error: (err) => {
+        alert('Email or password is incorrect');
+      },
+    });
   }
 }

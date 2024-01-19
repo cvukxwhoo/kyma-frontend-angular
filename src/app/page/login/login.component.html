@@ -5,7 +5,7 @@
     animationDuration="500ms"
   >
     <mat-tab label="Login">
-      <form [formGroup]="loginForm">
+      <form [formGroup]="loginForm" (ngSubmit)="signIn()">
         <div>
           <mat-form-field class="form-field" appearance="fill">
             <mat-label>Email</mat-label>
@@ -83,7 +83,7 @@
     >
 
     <mat-tab label="Register">
-      <form [formGroup]="registerForm">
+      <form [formGroup]="registerForm" (ngSubmit)="signUp()">
         <p>
           <mat-form-field class="form-field" appearance="fill">
             <mat-label>Full Name</mat-label>

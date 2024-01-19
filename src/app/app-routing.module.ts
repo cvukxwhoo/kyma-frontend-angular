@@ -7,12 +7,16 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
 import { LoginComponent } from './page/login/login.component';
 import { CartComponent } from './page/cart/cart.component';
 import { ProductsComponent } from './page/products/products.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'products', component: ProductsComponent },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'products',
+    component: ProductsComponent,
+  },
 
   {
     path: '**',

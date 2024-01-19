@@ -9,6 +9,7 @@ import { NotFoundComponent } from './page/not-found/not-found.component';
 import { ProductsComponent } from './page/products/products.component';
 import { CartComponent } from './page/cart/cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 // module
 import { MatIconModule } from '@angular/material/icon';
@@ -52,6 +53,7 @@ import { RightCartComponent } from './page/cart/components/right-cart/right-cart
     MatTabsModule,
     MatSelectModule,
     MatRadioModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
