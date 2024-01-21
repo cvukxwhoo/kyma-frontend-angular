@@ -3,11 +3,19 @@
   <ul class="product-list">
     <li *ngFor="let product of products" class="product-items">
       <div class="product-item">
-        <div class="img-item" href="">
+        <div
+          [style.cursor]="'pointer'"
+          (click)="navigateToDetails(product._id)"
+          class="img-item"
+        >
           <img [src]="product.imageUrl" alt="" />
         </div>
-        <a class="title-item" href="">
-          <h3 [style.color]="'#000'">{{ product.title }}</h3>
+        <a
+          [style.cursor]="'pointer'"
+          (click)="navigateToDetails(product._id)"
+          class="title-item"
+        >
+          <h3>{{ product.title }}</h3>
         </a>
         <div class="price-item flex">
           <span [style.color]="'red'" [style.font-size.px]="18"

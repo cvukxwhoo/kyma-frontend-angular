@@ -1,0 +1,97 @@
+<app-header></app-header>
+<!-- Thông tin sản phẩm -->
+<div *ngIf="product" class="detailProduct-container">
+  <!-- TITLE -->
+  <div class="product-title">
+    <h1>{{ product.title }}</h1>
+  </div>
+  <!-- PRODUCT WRAPPER -->
+  <div class="product-wrap flex">
+    <div class="img-infor">
+      <!-- Hình ảnh và video -->
+      <div class="product-media">
+        <div class="product-image">
+          <div class="big-image">
+            <a id="big-image-a">
+              <img id="imageSelected" [src]="product.imageUrl" alt="" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT ATTRIBUTE -->
+    <div class="product-attribute">
+      <table class="attribute-table-info">
+        <tbody>
+          <!-- CODE -->
+          <tr>
+            <td class="table-label">Mã sản phẩm</td>
+            <td class="table-value">
+              <span>{{ product.code }}</span>
+            </td>
+          </tr>
+          <!-- PRICE -->
+          <tr>
+            <td class="table-label">Giá bán</td>
+            <td class="table-value discount-price">
+              <del>{{ product.price | priceFormat }} VNĐ</del>
+            </td>
+          </tr>
+          <!-- DISCOUNT PRICE -->
+          <tr>
+            <td class="table-label">Giá khuyến mãi</td>
+            <td class="table-value">
+              <span [style.font-weight]="'700'" [style.color]="'red'"
+                >{{ product.discountPrice | priceFormat }} VNĐ</span
+              >(Đã có VAT)
+            </td>
+          </tr>
+          <!-- BRAND -->
+          <tr>
+            <td class="table-label">Thương hiệu</td>
+            <td class="table-value">
+              <span>{{ product.brands.brandName }}</span>
+            </td>
+          </tr>
+          <!-- Warranty Period -->
+          <tr>
+            <td class="table-label">Bảo hành</td>
+            <td class="table-value">
+              <span>{{ product.warrantyPeriod }} tháng</span>
+            </td>
+          </tr>
+          <!-- ORIGIN -->
+          <tr>
+            <td class="table-label">Xuất xứ</td>
+            <td class="table-value">
+              <span>{{ product.origin }}</span>
+            </td>
+          </tr>
+          <!-- QUANITY -->
+          <tr>
+            <td class="table-label">Còn Tồn</td>
+            <td class="table-value">
+              <span>{{ product.quanities }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <form class="attribute-form">
+        <input type="number" [defaultValue]="1" />
+        <br />
+        <button>Mua Hàng</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="salient-features">
+    <div class="item-title">Tính năng nổi bật</div>
+    <ul class="features-list">
+      <li class="features-item">
+        <p>{{ product.salientFeatures }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

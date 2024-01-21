@@ -35,5 +35,10 @@ export class ProductsComponent implements OnInit {
     });
   }
 
+  navigateToDetails(productId: string) {
+    // Navigate to the details page with the product ID
+    this.router.navigate(['/products/details', productId]);
+  }
+
   // END
 }

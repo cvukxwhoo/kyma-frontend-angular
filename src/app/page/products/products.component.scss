@@ -21,6 +21,11 @@
       border-style: solid;
       border-width: 1px;
       border-radius: 18px;
+      position: relative;
+
+      &:hover {
+        transform: scale(1.01);
+      }
 
       .img-item {
         text-align: center;
@@ -43,6 +48,14 @@
 
       .title-item {
         text-decoration: none;
+
+        h3 {
+          color: #000;
+
+          &:hover {
+            color: #ff8400;
+          }
+        }
       }
 
       .price-item {
@@ -51,6 +64,8 @@
 
       .button-item {
         justify-content: center;
+        position: absolute;
+        bottom: 0;
 
         .buy-button {
           border: 1px solid #de2a2b;

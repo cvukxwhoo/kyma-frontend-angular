@@ -26,6 +26,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { RightCartComponent } from './page/cart/components/right-cart/right-cart.component';
 import { PriceFormatPipe } from './pipe/price-format.pipe';
+import { DetailsProductComponent } from './page/details-product/details-product.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { PriceFormatPipe } from './pipe/price-format.pipe';
     CartComponent,
     RightCartComponent,
     PriceFormatPipe,
+    DetailsProductComponent,
   ],
   imports: [
     BrowserModule,

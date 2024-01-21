@@ -17,4 +17,8 @@ export class ProductService {
     // return this.http.post(`${environment.apiUrl}/register`, data);
     return this.http.get(`${environment.apiUrl}/api/products`);
   }
+
+  getProductById(id: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/api/products/details/${id}`);
+  }
 }

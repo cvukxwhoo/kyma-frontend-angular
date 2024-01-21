@@ -8,6 +8,7 @@ import { LoginComponent } from './page/login/login.component';
 import { CartComponent } from './page/cart/cart.component';
 import { ProductsComponent } from './page/products/products.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { DetailsProductComponent } from './page/details-product/details-product.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,10 @@ const routes: Routes = [
     path: 'products',
     component: ProductsComponent,
   },
-
+  {
+    path: 'products/details/:id',
+    component: DetailsProductComponent,
+  },
   {
     path: '**',
     component: NotFoundComponent,
