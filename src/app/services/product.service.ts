@@ -13,12 +13,18 @@ import { Observable, throwError } from 'rxjs';
 export class ProductService {
   constructor(private http: HttpClient) {}
 
+  // GET ALL PRODUCT
   getAllProducts(): Observable<any> {
-    // return this.http.post(`${environment.apiUrl}/register`, data);
     return this.http.get(`${environment.apiUrl}/api/products`);
   }
 
+  // GET DETAILS PRODUCT BY ID
   getProductById(id: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/api/products/details/${id}`);
+  }
+
+  // GET PRODUCT BY ID OF CATEGORY
+  getProductsByCategory(categoryId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/api/products/${categoryId}`);
   }
 }

@@ -51,7 +51,6 @@ export class DetailsProductComponent {
   getProductById() {
     this.productService.getProductById(this.productId).subscribe({
       next: (res) => {
-        console.log(res.data);
         this.product = res.data;
         this.cookiesService.setToken(String(res.data), 7);
       },
