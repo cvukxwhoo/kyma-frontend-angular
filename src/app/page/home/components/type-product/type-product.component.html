@@ -1,8 +1,8 @@
 <div class="container-types-product container">
   <div class="types-product-wrapper">
-    <div *ngFor="let product of listProduct" class="type-product">
-      <a href="">
-        <img [src]="product.img" alt="" />
+    <div *ngFor="let product of listCategory" class="type-product">
+      <a>
+        <img [src]="product.imageUrl" alt="" />
         <h3>{{ product.title }}</h3>
       </a>
     </div>
