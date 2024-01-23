@@ -22,7 +22,7 @@
         </div>
         <ng-container *ngIf="selectedCategory === category">
           <ul (mouseleave)="hideAllSubmenus()" class="nav-hidden flex">
-            <li class="nav-hidden-item" *ngFor="let path of category.pathIds">
+            <li class="nav-hidden-item" *ngFor="let path of category.paths">
               <a class="nav-hidden-directive">{{ path.title }}</a>
             </li>
           </ul>
