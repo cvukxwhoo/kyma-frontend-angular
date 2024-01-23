@@ -1,166 +1,32 @@
 <div class="header-bottom">
   <div class="header-bottom-container">
     <ul class="header-nav flex">
-      <!-- CAMERA -->
-      <li class="header-nav-item camera">
+      <li
+        (mouseleave)="hideAllSubmenus()"
+        *ngFor="let category of categories"
+        class="header-nav-item camera"
+      >
         <div class="box-menu-home">
-          <a (click)="camHiddenClick()" class="product-type-directive flex">
-            Máy ảnh <mat-icon *ngIf="isCameraHidden">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isCameraHidden">arrow_drop_up</mat-icon>
+          <a
+            (click)="onSelectCategory(category)"
+            class="product-type-directive flex"
+          >
+            {{ category.title }}
+            <mat-icon *ngIf="selectedCategory !== category"
+              >arrow_drop_down</mat-icon
+            >
+            <mat-icon *ngIf="selectedCategory === category"
+              >arrow_drop_up</mat-icon
+            >
           </a>
         </div>
-        <!-- HIDDEN NAV -->
-        <ng-container>
-          <ul
-            (mouseleave)="hideSubmenuOnMouseLeave()"
-            *ngIf="!isCameraHidden"
-            class="nav-hidden flex"
-          >
-            <li class="nav-hidden-item" *ngFor="let camera of camera">
-              <a class="nav-hidden-directive" [href]="camera.url">{{
-                camera.title
-              }}</a>
+        <ng-container *ngIf="selectedCategory === category">
+          <ul (mouseleave)="hideAllSubmenus()" class="nav-hidden flex">
+            <li class="nav-hidden-item" *ngFor="let path of category.pathIds">
+              <a class="nav-hidden-directive">{{ path.title }}</a>
             </li>
           </ul>
         </ng-container>
-      </li>
-
-      <!-- LENS  -->
-      <li class="header-nav-item lens">
-        <div class="box-menu-home">
-          <a (click)="lenHiddenClick()" class="product-type-directive flex"
-            >Ống kính
-            <mat-icon *ngIf="isLenHidden">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isLenHidden">arrow_drop_up</mat-icon>
-          </a>
-        </div>
-        <ul
-          (mouseleave)="hideSubmenuOnMouseLeave()"
-          *ngIf="!isLenHidden"
-          class="nav-hidden flex"
-        >
-          <li class="nav-hidden-item" *ngFor="let len of len">
-            <a class="nav-hidden-directive" [href]="len.url">{{ len.title }}</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- CAMERA RECORD -->
-      <li class="header-nav-item cameraRecord">
-        <div class="box-menu-home">
-          <a (click)="camRecHiddenClick()" class="product-type-directive flex"
-            >Máy quay phim
-            <mat-icon *ngIf="isCameraRecordHidden">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isCameraRecordHidden">arrow_drop_up</mat-icon>
-          </a>
-        </div>
-        <ul
-          (mouseleave)="hideSubmenuOnMouseLeave()"
-          *ngIf="!isCameraRecordHidden"
-          class="nav-hidden flex"
-        >
-          <li class="nav-hidden-item" *ngFor="let cameraRecord of cameraRecord">
-            <a class="nav-hidden-directive" [href]="cameraRecord.url">{{
-              cameraRecord.title
-            }}</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- CAMERA ACCESSORY -->
-      <li class="header-nav-item cameraAccessory">
-        <div class="box-menu-home">
-          <a
-            (click)="camAccessHiddenClick()"
-            class="product-type-directive flex"
-            >Phụ kiện máy ảnh
-            <mat-icon *ngIf="isCameraAccessory">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isCameraAccessory">arrow_drop_up</mat-icon></a
-          >
-        </div>
-        <ul
-          (mouseleave)="hideSubmenuOnMouseLeave()"
-          l
-          *ngIf="!isCameraAccessory"
-          class="nav-hidden flex"
-        >
-          <li
-            class="nav-hidden-item"
-            *ngFor="let cameraAccessory of cameraAccessory"
-          >
-            <a class="nav-hidden-directive" [href]="cameraAccessory.url">{{
-              cameraAccessory.title
-            }}</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- STUDIO EQUIPMENT -->
-      <li (click)="stuHiddenClick()" class="header-nav-item studioEquipment">
-        <div class="box-menu-home">
-          <a class="product-type-directive flex"
-            >Thiết bị Studio
-            <mat-icon *ngIf="isStudioEquipment">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isStudioEquipment">arrow_drop_up</mat-icon>
-          </a>
-        </div>
-        <ul
-          (mouseleave)="hideSubmenuOnMouseLeave()"
-          l
-          *ngIf="!isStudioEquipment"
-          class="nav-hidden flex"
-        >
-          <li
-            class="nav-hidden-item"
-            *ngFor="let studioEquipment of studioEquipment"
-          >
-            <a class="nav-hidden-directive" [href]="studioEquipment.url">{{
-              studioEquipment.title
-            }}</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- SOUND -->
-      <li (click)="soundHiddenClick()" class="header-nav-item sound">
-        <div class="box-menu-home">
-          <a class="product-type-directive flex"
-            >Âm thanh
-            <mat-icon *ngIf="isSound">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isSound">arrow_drop_up</mat-icon>
-          </a>
-        </div>
-        <ul
-          (mouseleave)="hideSubmenuOnMouseLeave()"
-          *ngIf="!isSound"
-          class="nav-hidden flex"
-        >
-          <li class="nav-hidden-item" *ngFor="let sound of sound">
-            <a class="nav-hidden-directive" [href]="sound.url">{{
-              sound.title
-            }}</a>
-          </li>
-        </ul>
-      </li>
-
-      <!-- TOY -->
-      <li (click)="toyHiddenClick()" class="header-nav-item toy">
-        <div class="box-menu-home">
-          <a class="product-type-directive flex"
-            >Đồ chơi
-            <mat-icon *ngIf="isToy">arrow_drop_down</mat-icon>
-            <mat-icon *ngIf="!isToy">arrow_drop_up</mat-icon>
-          </a>
-        </div>
-        <ul
-          (mouseleave)="hideSubmenuOnMouseLeave()"
-          *ngIf="!isToy"
-          class="nav-hidden flex"
-        >
-          <li class="nav-hidden-item" *ngFor="let toy of toy">
-            <a class="nav-hidden-directive" [href]="toy.url">{{ toy.title }}</a>
-          </li>
-        </ul>
       </li>
     </ul>
   </div>
