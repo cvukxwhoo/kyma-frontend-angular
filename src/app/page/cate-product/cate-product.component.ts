@@ -6,13 +6,13 @@ import { PriceFormatPipe } from '../../pipe/price-format.pipe';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  selector: 'app-cate-product',
+  templateUrl: './cate-product.component.html',
+  styleUrls: ['./cate-product.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class CateProductComponent implements OnInit {
   products: any[];
-  pathName: string;
+  categoryName: string;
 
   constructor(
     private productService: ProductService,
@@ -22,17 +22,16 @@ export class ProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.getAllProducts();
     this.route.params.subscribe((params) => {
-      this.pathName = params['pathName'];
-      // Fetch the product by its ID
-      this.getProductByPath();
+      this.categoryName = params['categoryName'];
+      // Fetch the product by its Name
+      this.getProductByCategory();
     });
   }
 
   // GET PRODUCT BY CATEGORY ID
-  getProductByPath() {
-    this.productService.getProductsByPath(this.pathName).subscribe({
+  getProductByCategory() {
+    this.productService.getProductsByCategory(this.categoryName).subscribe({
       next: (res) => {
         console.log(res.data);
         this.products = res.data;

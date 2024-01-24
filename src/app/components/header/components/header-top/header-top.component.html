@@ -36,7 +36,8 @@
             <button>Tạo tài khoản</button>
           </div>
           <div [style.texxtAlign]="'center'">
-            <div>Đăng nhập</div>
+            <div *ngIf="!isLoggedIn">Đăng nhập</div>
+            <div *ngIf="isLoggedIn">chien</div>
             <div>Tài khoản</div>
           </div>
           <mat-icon *ngIf="isSignHidden">keyboard_arrow_down</mat-icon>

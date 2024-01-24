@@ -1,8 +1,12 @@
 <app-header></app-header>
 <app-breadcrumb></app-breadcrumb>
-<div class="product-container">
+<div class="cate-product-container">
   <ul class="product-list">
-    <li *ngFor="let product of products" class="product-items">
+    <li
+      *ngFor="let product of products"
+      [routerLink]="['/products/details', product._id]"
+      class="product-items"
+    >
       <div class="product-item">
         <div
           [style.cursor]="'pointer'"

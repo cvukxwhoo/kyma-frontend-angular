@@ -27,6 +27,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { RightCartComponent } from './page/cart/components/right-cart/right-cart.component';
 import { PriceFormatPipe } from './pipe/price-format.pipe';
 import { DetailsProductComponent } from './page/details-product/details-product.component';
+import { CateProductComponent } from './page/cate-product/cate-product.component';
+import { BreadcrumbComponent } from './page/home/components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { DetailsProductComponent } from './page/details-product/details-product.
     RightCartComponent,
     PriceFormatPipe,
     DetailsProductComponent,
+    CateProductComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     BrowserModule,

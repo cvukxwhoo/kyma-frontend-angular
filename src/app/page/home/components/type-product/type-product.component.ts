@@ -35,4 +35,8 @@ export class TypeProductComponent implements OnInit {
       },
     });
   }
+
+  navigateToProductPage(categoryName: string): void {
+    this.router.navigate(['/products', categoryName]);
+  }
 }

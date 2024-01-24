@@ -9,17 +9,22 @@ import { CartComponent } from './page/cart/cart.component';
 import { ProductsComponent } from './page/products/products.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { DetailsProductComponent } from './page/details-product/details-product.component';
+import { CateProductComponent } from './page/cate-product/cate-product.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
   {
-    path: 'products/:categoryId',
+    path: 'products/path/:pathName',
     component: ProductsComponent,
   },
   {
-    path: 'products/details/:id',
+    path: 'products/:categoryName',
+    component: CateProductComponent,
+  },
+  {
+    path: 'products/details/:productId',
     component: DetailsProductComponent,
   },
   {

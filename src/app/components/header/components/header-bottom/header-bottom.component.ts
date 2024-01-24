@@ -2,6 +2,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-bottom',
@@ -12,7 +13,10 @@ export class HeaderBottomComponent implements OnInit {
   categories: any[] = [];
   selectedCategory: any = null; // Variable to store the selected category
 
-  constructor(private categoryService: CategoryService) {}
+  constructor(
+    private categoryService: CategoryService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.categoryService.getAllCategory().subscribe((data) => {

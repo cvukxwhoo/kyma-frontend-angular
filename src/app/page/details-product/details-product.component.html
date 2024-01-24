@@ -1,4 +1,5 @@
 <app-header></app-header>
+<app-breadcrumb></app-breadcrumb>
 <!-- Thông tin sản phẩm -->
 <div *ngIf="product" class="detailProduct-container">
   <!-- TITLE -->
@@ -51,7 +52,7 @@
           <tr>
             <td class="table-label">Thương hiệu</td>
             <td class="table-value">
-              <span>{{ product.brands.brandName }}</span>
+              <span>{{ product.byBrand.name }}</span>
             </td>
           </tr>
           <!-- Warranty Period -->
@@ -90,7 +91,7 @@
     <div class="item-title">Tính năng nổi bật</div>
     <ul class="features-list">
       <li class="features-item">
-        <p>{{ product.salientFeatures }}</p>
+        <p>{{ product.features }}</p>
       </li>
     </ul>
   </div>

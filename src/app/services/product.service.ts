@@ -15,20 +15,23 @@ export class ProductService {
 
   // GET ALL PRODUCT
   getAllProducts(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/api/products`);
-  }
-
-  // GET DETAILS PRODUCT BY ID
-  getProductById(id: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/api/products/details/${id}`);
-  }
-
-  // GET PRODUCT BY ID OF CATEGORY
-  getProductsByCategory(categoryId: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/api/products/${categoryId}`);
+    return this.http.get(`${environment.apiUrl}/products`);
   }
 
   getAllCategory(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/category`);
+  }
+
+  getProductsByCategory(categoryName: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/product/${categoryName}`);
+  }
+
+  getProductsByPath(pathName: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/product/path/${pathName}`);
+  }
+
+  // GET DETAILS PRODUCT BY ID
+  getProductById(productId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/product/details/${productId}`);
   }
 }

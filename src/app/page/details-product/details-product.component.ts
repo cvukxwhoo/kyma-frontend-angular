@@ -12,16 +12,16 @@ interface Product {
   code: string;
   price: number;
   discountPrice: number;
-  brands: Brand;
   warrantyPeriod: number;
   origin: string;
   quanities: number;
-  salientFeatures: string[];
+  features: string[];
+  byBrand: Brand;
   // Add other properties as needed
 }
 
 interface Brand {
-  brandName: string;
+  name: string;
 }
 
 @Component({
@@ -42,7 +42,7 @@ export class DetailsProductComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      this.productId = params['id'];
+      this.productId = params['productId'];
       // Fetch the product by its ID
       this.getProductById();
     });
