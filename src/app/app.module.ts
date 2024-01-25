@@ -29,6 +29,7 @@ import { PriceFormatPipe } from './pipe/price-format.pipe';
 import { DetailsProductComponent } from './page/details-product/details-product.component';
 import { CateProductComponent } from './page/cate-product/cate-product.component';
 import { BreadcrumbComponent } from './page/home/components/breadcrumb/breadcrumb.component';
+import { ChangePasswordComponent } from './page/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { BreadcrumbComponent } from './page/home/components/breadcrumb/breadcrum
     DetailsProductComponent,
     CateProductComponent,
     BreadcrumbComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,

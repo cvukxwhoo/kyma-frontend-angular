@@ -15,10 +15,10 @@ export class AuthService {
 
   signUp(data: any): Observable<any> {
     // return this.http.post(`${environment.apiUrl}/register`, data);
-    return this.http.post(`${environment.apiUrl}/register`, data);
+    return this.http.post(`${environment.apiUrl}/user/register`, data);
   }
 
   signIn(data: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/login`, data);
+    return this.http.post(`${environment.apiUrl}/user/login`, data);
   }
 }

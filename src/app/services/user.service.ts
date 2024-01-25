@@ -14,7 +14,8 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   // GET INFOR USER
-  getUsertById(userId: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/user/${userId}`);
+
+  getUserDetails(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/user`);
   }
 }

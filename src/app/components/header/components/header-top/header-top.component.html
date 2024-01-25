@@ -23,8 +23,13 @@
             alt=""
           />
         </div>
+
         <div class="header-signIn">
-          <div *ngIf="!isSignHidden" class="signInHidden flex">
+          <!-- CHƯA ĐĂNG NHẬP -->
+          <div
+            *ngIf="!isSignHidden && !isLoggedIn"
+            class="notSignInHidden flex"
+          >
             <h3 [style.marginTop.px]="'10'">Đăng nhập tài khoản</h3>
             <button
               (click)="changeDirectLogin()"
@@ -33,23 +38,44 @@
             >
               Đăng nhập
             </button>
-            <button>Tạo tài khoản</button>
+            <button (click)="changeDirectLogin()">Tạo tài khoản</button>
           </div>
-          <div [style.texxtAlign]="'center'">
+
+          <!-- ĐÃ ĐĂNG NHẬP -->
+          <ul *ngIf="!isSignHidden && isLoggedIn" class="signInHidden flex">
+            <li [routerLink]="['/change-password']">
+              <a href="">Đổi mật khẩu</a>
+            </li>
+            <li (click)="SignOut()"><a href="">Đăng xuất</a></li>
+          </ul>
+
+          <!--  -->
+          <div [style.textAlign]="'center'">
             <div *ngIf="!isLoggedIn">Đăng nhập</div>
-            <div *ngIf="isLoggedIn">chien</div>
             <div>Tài khoản</div>
           </div>
           <mat-icon *ngIf="isSignHidden">keyboard_arrow_down</mat-icon>
           <mat-icon *ngIf="!isSignHidden">keyboard_arrow_up</mat-icon>
         </div>
       </a>
+
       <a class="header-shopping flex">
         <div [style.display]="'flex'" class="shopping-cart">
           <mat-icon>shopping_cart</mat-icon>
+          <span id="header-cart-count">0</span>
         </div>
         <div>Giỏ Hàng</div>
-        <mat-icon>keyboard_arrow_down</mat-icon>
+        <mat-icon class="cart-show">keyboard_arrow_down</mat-icon>
+        <mat-icon class="cart-hidden">keyboard_arrow_up</mat-icon>
+
+        <div class="cartHidden flex">
+          <div class="cart-title">Sản phẩm trong giỏ hàng</div>
+          <ul>
+            <li *ngFor="let item of cartItems">
+              {{ item.name }} - {{ item.quantity }} - {{ item.price }}
+            </li>
+          </ul>
+        </div>
       </a>
     </div>
   </div>

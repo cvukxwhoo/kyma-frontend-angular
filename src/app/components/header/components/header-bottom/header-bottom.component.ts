@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
 import { Router } from '@angular/router';
+import { CookiesService } from 'src/app/services/cookies.service';
 
 @Component({
   selector: 'app-header-bottom',
@@ -15,7 +16,8 @@ export class HeaderBottomComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private router: Router
+    private router: Router,
+    private cookiesService: CookiesService
   ) {}
 
   ngOnInit(): void {

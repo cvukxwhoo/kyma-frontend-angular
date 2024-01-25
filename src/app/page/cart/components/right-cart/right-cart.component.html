@@ -99,27 +99,6 @@
 
     <!-- END INFOR BUYER -->
 
-    <!-- RADIO DELIVER -->
-    <div [style.padding.px]="'10px 0'" class="radio-container flex">
-      <label [style.flex]="'1'">
-        <input type="radio" formControlName="deliveryMethod" value="delivery" />
-        Giao hàng tận nơi
-      </label>
-
-      <label [style.flex]="'1'">
-        <input type="radio" formControlName="deliveryMethod" value="showroom" />
-        Nhận hàng tại showroom
-      </label>
-    </div>
-    <div
-      style="color: red"
-      *ngIf="paymentForm.get('deliveryMethod').hasError('required')"
-      class="error-message"
-    >
-      Cần chọn cách thức giao hàng
-    </div>
-    <!-- END RADIO DELIVER -->
-
     <!-- INVOICE -->
     <div [style.padding.px]="'10px 0'" class="invoice-container flex">
       <label class="flex-1">

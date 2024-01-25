@@ -10,6 +10,7 @@ import { ProductsComponent } from './page/products/products.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { DetailsProductComponent } from './page/details-product/details-product.component';
 import { CateProductComponent } from './page/cate-product/cate-product.component';
+import { ChangePasswordComponent } from './page/change-password/change-password.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'products/details/:productId',
     component: DetailsProductComponent,
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
+    canActivate: [AuthGuardService],
   },
   {
     path: '**',
