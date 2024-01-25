@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 export class CookiesService {
   setToken(token: string, expirationDays: number): void {
     const date = new Date();
-    // calculates the expiration time in milliseconds by adding the specified number of days to the current time.
     date.setTime(date.getTime() + expirationDays * 24 * 60 * 60 * 1000); // Set expiration time in milliseconds
     const expires = `expires=${date.toUTCString()}`;
     document.cookie = `myToken=${token}; ${expires};SameSite=None;Secure; HttpOnly" ;path=/`;
@@ -26,6 +25,17 @@ export class CookiesService {
     }
 
     return null;
+  }
+
+  setUserId(userId: string, expirationDays: number): void {
+    const date = new Date();
+    date.setTime(date.getTime() + expirationDays * 24 * 60 * 60 * 1000); // Set expiration time in milliseconds
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `userId=${userId}; ${expires};SameSite=None;Secure; HttpOnly" ;path=/`;
+  }
+
+  removeUserId(): void {
+    document.cookie = 'userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 
   removeCookie(myToken: string): void {

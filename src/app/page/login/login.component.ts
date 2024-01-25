@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
   selectedTab = 0;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -71,15 +72,22 @@ export class LoginComponent implements OnInit {
   get fullnameRegisterFormControl() {
     return this.registerForm.get('fullName');
   }
-
   signUp() {
-    this.authService.signUp(this.registerForm.value).subscribe({
+    this.loading = true;
+
+    const { email, password, fullName } = this.registerForm.value;
+
+    this.authService.signUp(email, password, fullName).subscribe({
       next: (res) => {
+        this.loading = false;
+        const token = res.token; // Assuming your API response has a 'token' property
+        this.cookiesService.setToken(token, 7);
         alert('Sign Up Successfully. Please Log In!');
         this.registerForm.reset();
         location.reload();
       },
       error: (error) => {
+        this.loading = false;
         console.error('Error during sign-up:', error);
         alert('Email has existed');
       },
@@ -87,14 +95,21 @@ export class LoginComponent implements OnInit {
   }
 
   signIn() {
-    this.authService.signIn(this.loginForm.value).subscribe({
+    this.loading = true;
+
+    const { email, password } = this.loginForm.value;
+
+    this.authService.signIn(email, password).subscribe({
       next: (res) => {
-        this.cookiesService.setToken(String(res.data), 7);
+        this.loading = false;
+        const token = res.token; // Assuming your API response has a 'token' property
+        this.cookiesService.setToken(token, 7);
         alert('Login Successfully!');
         this.loginForm.reset();
-        this.router.navigate(['']);
+        this.router.navigate(['']); // Navigate to the home page or user dashboard
       },
       error: (err) => {
+        this.loading = false;
         alert('Email or password is incorrect');
       },
     });

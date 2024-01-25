@@ -33,7 +33,7 @@ export class HeaderTopComponent implements OnInit {
 
   ngOnInit(): void {
     // Check if token exists
-    this.isLoggedIn = this.cookiesService.getToken() !== null;
+    this.isLoggedIn = !!this.cookiesService.getToken();
     this.loadCartItems();
   }
 
