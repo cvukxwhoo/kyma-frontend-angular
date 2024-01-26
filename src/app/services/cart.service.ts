@@ -13,11 +13,17 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class CartService {
   private cartKey = 'cart';
+  private items: any[] = [];
+
   constructor(private http: HttpClient) {}
 
-  addToCart(productId: string, quantity?: number): Observable<any> {
-    const body = { productId, quantity };
-    return this.http.post<any>(`${environment.apiUrl}/cart/create`, body);
+  // addToCart(productId: string, quantity?: number): Observable<any> {
+  //   const body = { productId, quantity };
+  //   return this.http.post<any>(`${environment.apiUrl}/cart/create`, body);
+  // }
+
+  addToCart(_id: string) {
+    return this.http.post<any>(`${environment.apiUrl}/cart/create`, _id);
   }
 
   updateLocalStorage(cartItems: any[]): void {

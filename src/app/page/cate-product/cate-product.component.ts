@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { CookiesService } from 'src/app/services/cookies.service';
 import { PriceFormatPipe } from '../../pipe/price-format.pipe';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-cate-product',
@@ -11,14 +12,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cate-product.component.scss'],
 })
 export class CateProductComponent implements OnInit {
-  products: any[];
+  @Input() products: any[];
   categoryName: string;
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private cookiesService: CookiesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -46,6 +48,17 @@ export class CateProductComponent implements OnInit {
   navigateToDetails(productId: string) {
     // Navigate to the details page with the product ID
     this.router.navigate(['/products/details', productId]);
+  }
+
+  addToCart(productId: string) {
+    this.cartService.addToCart(productId).subscribe({
+      next: (res) => {
+        console.log(res); // Handle success
+      },
+      error: (err) => {
+        console.error(err); // Handle error
+      },
+    });
   }
 
   // END

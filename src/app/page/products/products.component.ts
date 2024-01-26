@@ -53,21 +53,22 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/products/details', productId]);
   }
 
-  addToCart(_id: string): void {
-    this.cartService.addToCart(_id).subscribe(
-      (response) => {
-        // Update local storage with the latest cart items
-        const cartItems = response.cartItem;
-        this.cartService.updateLocalStorage(cartItems);
+  addToCart(_id: string) {}
+  // addToCart(_id: string): void {
+  //   this.cartService.addToCart(_id).subscribe(
+  //     (response) => {
+  //       // Update local storage with the latest cart items
+  //       const cartItems = response.cartItem;
+  //       this.cartService.updateLocalStorage(cartItems);
 
-        // Update the cart info in the header
-        this.cartInfoService.updateCartItems(cartItems);
-      },
-      (error) => {
-        console.error('Error adding to cart:', error);
-      }
-    );
-  }
+  //       // Update the cart info in the header
+  //       this.cartInfoService.updateCartItems(cartItems);
+  //     },
+  //     (error) => {
+  //       console.error('Error adding to cart:', error);
+  //     }
+  //   );
+  // }
 
   // END
 }
