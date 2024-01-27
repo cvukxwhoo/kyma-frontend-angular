@@ -62,14 +62,45 @@
       <a class="header-shopping flex">
         <div [style.display]="'flex'" class="shopping-cart">
           <mat-icon>shopping_cart</mat-icon>
-          <span id="header-cart-count">0</span>
+          <span id="header-cart-count">{{ cartItems.length }}</span>
         </div>
         <div>Giỏ Hàng</div>
-        <mat-icon class="cart-show">keyboard_arrow_down</mat-icon>
-        <mat-icon class="cart-hidden">keyboard_arrow_up</mat-icon>
+        <mat-icon class="cart-button-show">keyboard_arrow_down</mat-icon>
+        <mat-icon class="cart-button-hidden">keyboard_arrow_up</mat-icon>
 
-        <div class="cartHidden flex">
+        <div class="cart-hidden flex">
           <div class="cart-title">Sản phẩm trong giỏ hàng</div>
+          <ul class="cart-list">
+            <li class="flex" *ngFor="let item of cartItems">
+              <img [src]="item.imageUrl" alt="" />
+              <div>
+                <div
+                  [style.flex-direction]="'column'"
+                  class="cart-list-text flex"
+                >
+                  {{ item.title }}
+                </div>
+                <p
+                  [style.display]="'inline'"
+                  [style.color]="'#f7941d'"
+                  class="cart-list-text flex"
+                >
+                  {{ item.price | priceFormat }} VNĐ
+                </p>
+                <span>x {{ item.quantity }}</span>
+              </div>
+            </li>
+          </ul>
+
+          <div
+            class="cart-button-pay"
+            [style.padding-left]="'15px'"
+            [style.gap]="'15px'"
+            class="flex"
+          >
+            <a>Giỏ Hàng</a>
+            <a>Thanh Toán</a>
+          </div>
         </div>
       </a>
     </div>

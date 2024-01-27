@@ -12,8 +12,11 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cate-product.component.scss'],
 })
 export class CateProductComponent implements OnInit {
-  @Input() products: any[];
+  quantity: number;
   categoryName: string;
+  @Input() count: number = 0;
+  products: any[];
+  @Input() cartItems: any[] = [];
 
   constructor(
     private productService: ProductService,
@@ -24,11 +27,20 @@ export class CateProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.cartService.cartItems$.subscribe((cartItems) => {
+      this.cartItems = cartItems;
+    });
+
+    this.cartService.countItems$.subscribe((count) => {
+      this.count = count;
+    });
     this.route.params.subscribe((params) => {
       this.categoryName = params['categoryName'];
       // Fetch the product by its Name
       this.getProductByCategory();
     });
+
+    this.getProductByCategory();
   }
 
   // GET PRODUCT BY CATEGORY ID
@@ -50,16 +62,40 @@ export class CateProductComponent implements OnInit {
     this.router.navigate(['/products/details', productId]);
   }
 
-  addToCart(productId: string) {
-    this.cartService.addToCart(productId).subscribe({
-      next: (res) => {
-        console.log(res); // Handle success
-      },
-      error: (err) => {
-        console.error(err); // Handle error
-      },
-    });
-  }
+  // addToCart(event: Event, productId: string) {
+  //   this.count++;
+  //   // Prevent the default behavior of the button (form submission, page reload)
+  //   event.preventDefault();
 
-  // END
+  //   const selectedProduct = this.products.find(
+  //     (product) => product._id === productId
+  //   );
+
+  //   if (selectedProduct) {
+  //     this.cartService.addToCart(selectedProduct);
+  //     // Update the quantity property in the local products array
+  //     selectedProduct.quantity = this.count;
+  //   }
+  // }
+
+  // cate-product.component.ts
+  addToCart(event: Event, productId: string) {
+    // Prevent the default behavior of the button (form submission, page reload)
+    event.preventDefault();
+
+    const selectedProduct = this.products.find(
+      (product) => product._id === productId
+    );
+
+    if (selectedProduct) {
+      // Increment the count
+      this.count++;
+
+      // Add the product to the cart with count information
+      this.cartService.addToCart(selectedProduct, this.count);
+
+      // Update the quantity property in the local products array
+      selectedProduct.quantity = this.count;
+    }
+  }
 }

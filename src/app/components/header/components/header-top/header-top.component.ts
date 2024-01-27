@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CookiesService } from 'src/app/services/cookies.service';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
+import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
+
 interface CartItem {
   productId: string;
   quantity: string;
@@ -20,8 +22,8 @@ export class HeaderTopComponent implements OnInit {
   isSignHidden = true;
   isCartHidden = true;
   isLoggedIn: boolean = false; // Add this line
-
-  cartItems: CartItem[];
+  @Input() count: number = 0;
+  @Input() cartItems: any[] = [];
 
   constructor(
     private router: Router,
@@ -34,7 +36,6 @@ export class HeaderTopComponent implements OnInit {
   ngOnInit(): void {
     // Check if token exists
     this.isLoggedIn = !!this.cookiesService.getToken();
-    this.loadCartItems();
   }
 
   handleSignIn() {
@@ -48,11 +49,6 @@ export class HeaderTopComponent implements OnInit {
   changeDirectLogin() {
     const login = '/login';
     this.router.navigate([login]);
-  }
-
-  loadCartItems(): void {
-    this.cartItems = this.cartService.getCartItemsFromLocalStorage();
-    console.log(this.cartItems);
   }
 
   SignOut(): void {

@@ -1,38 +1,75 @@
+// cart.service.ts
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpErrorResponse,
-} from '@angular/common/http';
-import { environment } from '../environment';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private cartKey = 'cart';
-  private items: any[] = [];
+  private countKey = 'count';
+  private cartItems: any[] = [];
+  private countItems: number = 0;
 
-  constructor(private http: HttpClient) {}
+  private cartItemsSubject = new BehaviorSubject<any[]>([]);
+  cartItems$ = this.cartItemsSubject.asObservable();
 
-  // addToCart(productId: string, quantity?: number): Observable<any> {
-  //   const body = { productId, quantity };
-  //   return this.http.post<any>(`${environment.apiUrl}/cart/create`, body);
-  // }
+  private countItemsSubject = new BehaviorSubject<any>('');
+  countItems$ = this.countItemsSubject.asObservable();
 
-  addToCart(_id: string) {
-    return this.http.post<any>(`${environment.apiUrl}/cart/create`, _id);
+  constructor() {
+    // Initialize cartItems from localStorage on service instantiation
+    this.cartItems = this.getCartItemsFromLocalStorage();
+    this.updateCartItemsSubject();
+
+    this.countItems = this.getCountItemsFromLocalStorage();
+    this.updateCountItemsSubject();
   }
 
-  updateLocalStorage(cartItems: any[]): void {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
+  addToCart(product: any, quantity: number): void {
+    const existingItem = this.cartItems.find(
+      (item) => item.productId === product._id
+    );
+
+    if (existingItem) {
+      // If the item already exists in the cart, update the quantity
+      existingItem.quantity += quantity;
+    } else {
+      // If the item doesn't exist, add a new item to the cart
+      const newItem = {
+        productId: product._id,
+        quantity: quantity,
+        title: product.title,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        // Add other product details as needed
+      };
+
+      this.cartItems.push(newItem);
+    }
+
+    // Update cart items in localStorage and BehaviorSubject
+    this.updateLocalStorage();
+    this.updateCartItemsSubject();
+    this.updateCountItemsSubject();
   }
 
-  getCartItemsFromLocalStorage(): any[] {
+  private updateCartItemsSubject(): void {
+    this.cartItemsSubject.next([...this.cartItems]);
+  }
+
+  private updateCountItemsSubject(): void {
+    this.countItemsSubject.next(this.countItems);
+  }
+
+  private updateLocalStorage(): void {
+    localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
+    // Save the count to localStorage
+    localStorage.setItem(this.countKey, JSON.stringify(this.countItems));
+  }
+
+  private getCartItemsFromLocalStorage(): any[] {
     const cartItemsJson = localStorage.getItem(this.cartKey);
-    console.log('Cart Items from Local Storage:', cartItemsJson);
 
     if (!cartItemsJson) {
       return [];
@@ -43,6 +80,21 @@ export class CartService {
     } catch (error) {
       console.error('Error parsing JSON:', error);
       return [];
+    }
+  }
+
+  private getCountItemsFromLocalStorage(): number {
+    const countItemsJson = localStorage.getItem(this.countKey);
+
+    if (!countItemsJson) {
+      return 0;
+    }
+
+    try {
+      return JSON.parse(countItemsJson);
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+      return 0;
     }
   }
 }

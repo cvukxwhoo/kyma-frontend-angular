@@ -1,11 +1,7 @@
-<app-header></app-header>
+<app-header [cartItems]="cartItems" [count]="count"></app-header>
 <div class="cate-product-container">
   <ul class="product-list">
-    <li
-      *ngFor="let product of products"
-      [routerLink]="['/products/details', product._id]"
-      class="product-items"
-    >
+    <li *ngFor="let product of products" class="product-items">
       <div class="product-item">
         <div
           [style.cursor]="'pointer'"
@@ -19,7 +15,9 @@
           (click)="navigateToDetails(product._id)"
           class="title-item"
         >
-          <h3>{{ product.title }}</h3>
+          <h3 [routerLink]="['/products/details', product._id]">
+            {{ product.title }}
+          </h3>
         </a>
         <div class="price-item flex">
           <span [style.color]="'red'" [style.font-size.px]="18"
@@ -34,8 +32,11 @@
           </del>
         </div>
         <div class="button-item flex">
-          <button class="buy-button">Mua</button>
-          <button (click)="addToCart(product._id)" class="installment-button">
+          <button [routerLink]="['/cart']" class="buy-button">Mua</button>
+          <button
+            (click)="addToCart($event, product._id)"
+            class="installment-button"
+          >
             Thêm
           </button>
         </div>
