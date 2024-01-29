@@ -43,6 +43,13 @@
     >
       Không nhập hơn 12 số
     </div>
+    <div
+      style="color: red"
+      *ngIf="paymentForm.get('phoneNumber').hasError('pattern')"
+      class="error-message"
+    >
+      Chỉ nhập số
+    </div>
 
     <div class="info-buyer">
       <div class="info-left">

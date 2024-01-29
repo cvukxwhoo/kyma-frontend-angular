@@ -15,17 +15,25 @@ import { CartInfoService } from 'src/app/services/cart-info.service';
 export class ProductsComponent implements OnInit {
   products: any[];
   pathName: string;
+  cartItems: any[] = [];
+  count: number = 0;
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private cookiesService: CookiesService,
     private route: ActivatedRoute,
-    private cartService: CartService,
-    private cartInfoService: CartInfoService
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
+    this.cartService.cartItems$.subscribe((cartItems) => {
+      this.cartItems = cartItems;
+    });
+
+    this.cartService.countItems$.subscribe((count) => {
+      this.count = count;
+    });
     // this.getAllProducts();
     this.route.params.subscribe((params) => {
       this.pathName = params['pathName'];
@@ -53,22 +61,25 @@ export class ProductsComponent implements OnInit {
     this.router.navigate(['/products/details', productId]);
   }
 
-  addToCart(_id: string) {}
-  // addToCart(_id: string): void {
-  //   this.cartService.addToCart(_id).subscribe(
-  //     (response) => {
-  //       // Update local storage with the latest cart items
-  //       const cartItems = response.cartItem;
-  //       this.cartService.updateLocalStorage(cartItems);
+  addToCart(event: Event, productId: string) {
+    // Prevent the default behavior of the button (form submission, page reload)
+    event.preventDefault();
 
-  //       // Update the cart info in the header
-  //       this.cartInfoService.updateCartItems(cartItems);
-  //     },
-  //     (error) => {
-  //       console.error('Error adding to cart:', error);
-  //     }
-  //   );
-  // }
+    const selectedProduct = this.products.find(
+      (product) => product._id === productId
+    );
+
+    if (selectedProduct) {
+      // Increment the count
+      this.count++;
+
+      // Add the product to the cart with count information
+      this.cartService.addToCart(selectedProduct, this.count);
+
+      // Update the quantity property in the local products array
+      selectedProduct.quantity = this.count;
+    }
+  }
 
   // END
 }

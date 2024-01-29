@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BillService } from 'src/app/services/bill.service';
+import { CartService } from 'src/app/services/cart.service';
+import { CookiesService } from 'src/app/services/cookies.service';
 
 @Component({
   selector: 'app-right-cart',
@@ -8,11 +11,38 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RightCartComponent implements OnInit {
   paymentForm: FormGroup;
+  cartItems: any[] = [];
+  userId: string | null = '';
 
-  constructor(private fb: FormBuilder) {}
+  @Output() submitForm: EventEmitter<any> = new EventEmitter();
+
+  constructor(
+    private fb: FormBuilder,
+    private cartService: CartService,
+    private billService: BillService,
+    private cookiesService: CookiesService
+  ) {}
 
   ngOnInit(): void {
+    this.cartService.cartItems$.subscribe((cartItems) => {
+      // Do something with the updated cart items
+      this.cartItems = cartItems;
+    });
+
+    this.cookiesService
+      .getUserIdObservable()
+      .subscribe((userId: string | null) => {
+        this.userId = userId;
+      });
+
     this.createFormPayment();
+  }
+
+  getTotalPrice(): number {
+    // Calculate the total price
+    return this.cartItems.reduce((accumulator, item) => {
+      return accumulator + item.price * item.quantity;
+    }, 0);
   }
 
   createFormPayment() {
@@ -26,10 +56,10 @@ export class RightCartComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(12),
+          Validators.pattern('^[0-9]+$'),
         ],
       ],
       address: ['', [Validators.required]],
-      deliveryMethod: ['', [Validators.required]],
 
       // COMPANY
       buyerCompany: [false],
@@ -58,10 +88,6 @@ export class RightCartComponent implements OnInit {
     return this.paymentForm.get('address');
   }
 
-  get deliveryMethodPaymentControl() {
-    return this.paymentForm.get('deliveryMethod');
-  }
-
   // ---------- INFOR COMPANY ----------- //
   get companyNamePaymentControl() {
     return this.paymentForm.get('companyName');
@@ -73,6 +99,9 @@ export class RightCartComponent implements OnInit {
 
   get addressCompanyPaymentControl() {
     return this.paymentForm.get('addressCompany');
+  }
+  get textareaContentPaymentControl() {
+    return this.paymentForm.get('textareaContent');
   }
 
   // ------------ Buyer ---------------- //
@@ -94,15 +123,15 @@ export class RightCartComponent implements OnInit {
 
   // ---------------- Payment -------------- //
   subscribeToPaymentChanges() {
-    const bankingControl = this.paymentForm.get('banking');
-    const atmControl = this.paymentForm.get('atm');
-    const codControl = this.paymentForm.get('cod');
+    const bankingControl = this.paymentForm.get('Banking');
+    const atmControl = this.paymentForm.get('Atm');
+    const codControl = this.paymentForm.get('Cod');
 
     this.paymentForm.get('payments').valueChanges.subscribe((value) => {
-      if (value === 'banking') {
+      if (value === 'Banking') {
         atmControl.disable();
         codControl.disable();
-      } else if (value === 'atm') {
+      } else if (value === 'Atm') {
         bankingControl.disable();
         codControl.disable();
       } else {
@@ -114,8 +143,41 @@ export class RightCartComponent implements OnInit {
 
   onSubmit() {
     if (this.paymentForm.valid) {
-      // Perform actions when the form is submitted
-      console.log(this.paymentForm.value);
+      const billData = {
+        fullName: this.paymentForm.get('fullName').value,
+        email: this.paymentForm.get('email').value,
+        phoneNumber: this.paymentForm.get('phoneNumber').value,
+        address: this.paymentForm.get('address').value,
+        invoice: this.paymentForm.get('buyerCompany' || 'buyerIndividual')
+          .value,
+        companyName: this.paymentForm.get('companyName').value,
+        taxCode: this.paymentForm.get('taxCode').value,
+        addressCompany: this.paymentForm.get('addressCompany').value,
+        textareaContent: this.paymentForm.get('textareaContent'),
+        cartData: this.cartItems.map((item) => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          title: item.title,
+          price: item.price,
+          imageUrl: item.imageUrl,
+        })),
+        customer: this.userId,
+      };
+
+      console.log(billData);
+
+      // Emit an event with the form values
+      // this.submitForm.emit(this.paymentForm.value);
+
+      this.billService.createBill(billData).subscribe({
+        next: (res) => {
+          console.log('Bill created successfully', res);
+          this.paymentForm.reset();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     }
   }
 }

@@ -64,7 +64,7 @@
           <mat-icon>shopping_cart</mat-icon>
           <span id="header-cart-count">{{ cartItems.length }}</span>
         </div>
-        <div>Giỏ Hàng</div>
+        <div [routerLink]="['/cart']">Giỏ Hàng</div>
         <mat-icon class="cart-button-show">keyboard_arrow_down</mat-icon>
         <mat-icon class="cart-button-hidden">keyboard_arrow_up</mat-icon>
 

@@ -14,9 +14,9 @@ import { CartService } from 'src/app/services/cart.service';
 export class CateProductComponent implements OnInit {
   quantity: number;
   categoryName: string;
-  @Input() count: number = 0;
+  count: number = 0;
   products: any[];
-  @Input() cartItems: any[] = [];
+  cartItems: any[] = [];
 
   constructor(
     private productService: ProductService,
@@ -78,7 +78,6 @@ export class CateProductComponent implements OnInit {
   //   }
   // }
 
-  // cate-product.component.ts
   addToCart(event: Event, productId: string) {
     // Prevent the default behavior of the button (form submission, page reload)
     event.preventDefault();

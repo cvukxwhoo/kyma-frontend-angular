@@ -4,6 +4,7 @@ import { CookiesService } from 'src/app/services/cookies.service';
 import { UserService } from 'src/app/services/user.service';
 import { CartService } from 'src/app/services/cart.service';
 import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface CartItem {
   productId: string;
@@ -29,7 +30,8 @@ export class HeaderTopComponent implements OnInit {
     private cookiesService: CookiesService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -55,9 +57,7 @@ export class HeaderTopComponent implements OnInit {
   }
 
   SignOut(): void {
-    this.cookiesService.removeCookie('myToken', 'userId');
-    // You might want to add additional cleanup steps here
-    this.cartService.removeLocalStorage();
+    this.authService.logout();
     this.router.navigate(['']);
   }
 }

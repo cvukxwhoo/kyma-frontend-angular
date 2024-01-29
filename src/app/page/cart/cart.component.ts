@@ -32,6 +32,13 @@ export class CartComponent implements OnInit {
     });
   }
 
+  getTotalPrice(): number {
+    // Calculate the total price
+    return this.cartItems.reduce((accumulator, item) => {
+      return accumulator + item.price * item.quantity;
+    }, 0);
+  }
+
   plusCartQuantity(event: Event, productId: string) {
     // Prevent the default behavior of the button (form submission, page reload)
     event.preventDefault();
@@ -43,6 +50,9 @@ export class CartComponent implements OnInit {
     if (selectedProduct) {
       // Increment the count
       selectedProduct.quantity++;
+
+      // Update the local storage with the modified array
+      localStorage.setItem('cart', JSON.stringify(this.cartItems));
     }
   }
 
@@ -56,7 +66,7 @@ export class CartComponent implements OnInit {
 
     if (selectedProduct) {
       // Increment the count
-      selectedProduct.quantity--;
+      selectedProduct.quantity = Math.max(1, selectedProduct.quantity - 1);
     }
   }
 
@@ -73,5 +83,12 @@ export class CartComponent implements OnInit {
       // Update the local storage with the modified array
       localStorage.setItem('cart', JSON.stringify(this.cartItems));
     }
+  }
+
+  // RIGHT CART
+  handleFormSubmission(formData: any) {
+    // Handle the form data received from the child component
+    console.log('Form data from child component:', formData);
+    // Add additional logic as needed
   }
 }

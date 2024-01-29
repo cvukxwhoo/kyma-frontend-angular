@@ -37,7 +37,7 @@
                 >
                   -
                 </button>
-                <input type="text" [value]="item.quantity" />
+                <input type="text" min="1" [value]="item.quantity" />
                 <button
                   (click)="plusCartQuantity($event, item.productId)"
                   class="cart-qty-plus"
@@ -47,7 +47,10 @@
               </div>
             </td>
             <td class="action">
-              <div (click)="deleteEachItem($event, item.productId)">
+              <div
+                [style.cursor]="'pointer'"
+                (click)="deleteEachItem($event, item.productId)"
+              >
                 <fa-icon
                   [style.color]="'red'"
                   [icon]="faCalendarXmark"
@@ -57,9 +60,21 @@
           </tr>
         </tbody>
       </table>
+      <tr class="flex" [style.width]="'100%'">
+        <td [style.text-align]="'right'" [style.width]="'70%'">
+          <strong>TỔNG TIỀN</strong>
+        </td>
+        <td [style.text-align]="'right'" [style.width]="'25%'" id="total-price">
+          <strong [style.color]="'red'"
+            >{{ getTotalPrice() | priceFormat }}VNĐ</strong
+          >
+        </td>
+      </tr>
     </div>
 
     <!-- RIGHT SIDE -->
-    <app-right-cart></app-right-cart>
+    <app-right-cart
+      (submitForm)="handleFormSubmission($event)"
+    ></app-right-cart>
   </div>
 </div>

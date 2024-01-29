@@ -32,7 +32,10 @@
         <div class="button-item flex">
           <button class="buy-button">Mua</button>
 
-          <button class="installment-button" (click)="addToCart(product._id)">
+          <button
+            class="installment-button"
+            (click)="addToCart($event, product._id)"
+          >
             Thêm
           </button>
         </div>

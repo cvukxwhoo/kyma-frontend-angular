@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CookiesService {
+  private userIdSubject: BehaviorSubject<string | null>;
+
+  constructor() {
+    this.userIdSubject = new BehaviorSubject<string | null>(this.getUserId());
+  }
   setToken(token: string, expirationDays: number): void {
     const date = new Date();
     // calculates the expiration time in milliseconds by adding the specified number of days to the current time.
@@ -38,6 +44,10 @@ export class CookiesService {
   getUserId(): string | null {
     const name = 'userId=';
     return this.getCookieValue(name);
+  }
+
+  getUserIdObservable(): Observable<string | null> {
+    return this.userIdSubject.asObservable();
   }
 
   private getCookieValue(cookieName: string): string | null {
