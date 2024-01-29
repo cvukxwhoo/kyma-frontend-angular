@@ -4,6 +4,7 @@ import { environment } from '../environment';
 import { Observable, MonoTypeOperatorFunction } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { CookiesService } from './cookies.service';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,8 @@ import { CookiesService } from './cookies.service';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private cookiesService: CookiesService
+    private cookiesService: CookiesService,
+    private cartService: CartService
   ) {}
   signUp(email: string, password: string, fullName: string): Observable<any> {
     const body = { email, password, fullName };
@@ -47,8 +49,8 @@ export class AuthService {
 
   logout(): void {
     // Remove token and userId from cookies
-    this.cookiesService.removeCookie('myToken');
-    this.cookiesService.removeUserId();
+    this.cookiesService.removeCookie('myToken', 'userId');
+    this.cartService.removeLocalStorage();
   }
 
   isAuthenticated(): boolean {

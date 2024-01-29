@@ -194,7 +194,7 @@
         display: none;
         position: absolute;
         z-index: 20;
-        top: 50px;
+        top: 30px;
         left: 0px;
         background: #fff;
         width: 280px;
@@ -235,6 +235,14 @@
         .cart-button-pay {
           padding-left: 15px;
           gap: 15px;
+
+          > a {
+            text-decoration: underline;
+
+            &:hover {
+              color: aqua;
+            }
+          }
         }
       }
     }

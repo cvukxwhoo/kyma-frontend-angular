@@ -22,8 +22,7 @@ export class HeaderTopComponent implements OnInit {
   isSignHidden = true;
   isCartHidden = true;
   isLoggedIn: boolean = false; // Add this line
-  @Input() count: number = 0;
-  @Input() cartItems: any[] = [];
+  cartItems: any[] = [];
 
   constructor(
     private router: Router,
@@ -36,6 +35,10 @@ export class HeaderTopComponent implements OnInit {
   ngOnInit(): void {
     // Check if token exists
     this.isLoggedIn = !!this.cookiesService.getToken();
+    this.cartService.cartItems$.subscribe((cartItems) => {
+      // Do something with the updated cart items
+      this.cartItems = cartItems;
+    });
   }
 
   handleSignIn() {
@@ -52,8 +55,9 @@ export class HeaderTopComponent implements OnInit {
   }
 
   SignOut(): void {
-    this.cookiesService.removeCookie('myToken');
+    this.cookiesService.removeCookie('myToken', 'userId');
     // You might want to add additional cleanup steps here
+    this.cartService.removeLocalStorage();
     this.router.navigate(['']);
   }
 }

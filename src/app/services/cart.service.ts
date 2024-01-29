@@ -1,4 +1,3 @@
-// cart.service.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
@@ -96,5 +95,9 @@ export class CartService {
       console.error('Error parsing JSON:', error);
       return 0;
     }
+  }
+
+  removeLocalStorage() {
+    localStorage.removeItem('cart');
   }
 }

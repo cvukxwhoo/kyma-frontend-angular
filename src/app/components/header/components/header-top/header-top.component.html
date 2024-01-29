@@ -92,14 +92,9 @@
             </li>
           </ul>
 
-          <div
-            class="cart-button-pay"
-            [style.padding-left]="'15px'"
-            [style.gap]="'15px'"
-            class="flex"
-          >
-            <a>Giỏ Hàng</a>
-            <a>Thanh Toán</a>
+          <div class="cart-button-pay flex">
+            <a [routerLink]="['/cart']">Giỏ Hàng</a>
+            <a [routerLink]="['/cart']">Thanh Toán</a>
           </div>
         </div>
       </a>

@@ -30,6 +30,7 @@ import { DetailsProductComponent } from './page/details-product/details-product.
 import { CateProductComponent } from './page/cate-product/cate-product.component';
 import { BreadcrumbComponent } from './page/home/components/breadcrumb/breadcrumb.component';
 import { ChangePasswordComponent } from './page/change-password/change-password.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { ChangePasswordComponent } from './page/change-password/change-password.
     MatSelectModule,
     MatRadioModule,
     HttpClientModule,
+    FontAwesomeModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

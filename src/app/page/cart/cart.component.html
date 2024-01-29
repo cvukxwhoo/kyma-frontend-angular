@@ -4,6 +4,59 @@
     <!-- LEFT SIDE -->
     <div class="left-side">
       <h3>THÔNG TIN GIỎ HÀNG</h3>
+      <table class="cart-summary">
+        <thead>
+          <tr>
+            <th class="cart-product">Hình ảnh</th>
+            <th class="cart-description">Sản phẩm</th>
+            <th class="price">Đơn giá</th>
+            <th class="action">
+              <fa-icon [style.color]="'red'" [icon]="faTrash"></fa-icon>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody *ngFor="let item of cartItems">
+          <tr id="cart-row">
+            <td class="cart-product">
+              <a href="">
+                <img [src]="item.imageUrl" alt="" />
+              </a>
+            </td>
+            <td class="cart-description">
+              <a class="product-name">{{ item.title }}</a>
+            </td>
+            <td class="price">
+              <strong [style.color]="'red'"
+                >{{ item.price | priceFormat }} VNĐ</strong
+              >
+              <div class="cart-quantity">
+                <button
+                  (click)="minusCartQuantity($event, item.productId)"
+                  class="cart-qty-minus"
+                >
+                  -
+                </button>
+                <input type="text" [value]="item.quantity" />
+                <button
+                  (click)="plusCartQuantity($event, item.productId)"
+                  class="cart-qty-plus"
+                >
+                  +
+                </button>
+              </div>
+            </td>
+            <td class="action">
+              <div (click)="deleteEachItem($event, item.productId)">
+                <fa-icon
+                  [style.color]="'red'"
+                  [icon]="faCalendarXmark"
+                ></fa-icon>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- RIGHT SIDE -->
