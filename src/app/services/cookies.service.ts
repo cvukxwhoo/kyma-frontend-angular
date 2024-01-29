@@ -22,7 +22,9 @@ export class CookiesService {
     const date = new Date();
     date.setTime(date.getTime() + expirationDays * 24 * 60 * 60 * 1000);
     const expires = `expires=${date.toUTCString()}`;
-    document.cookie = `userId=${userId}; ${expires};SameSite=None;Secure; HttpOnly" ;path=/`;
+    document.cookie = `userId=${userId}; ${expires};SameSite=None;Secure; HttpOnly; path=/`;
+
+    this.userIdSubject.next(userId); // Update the subject
   }
 
   // Get the value of the token from the cookie
@@ -43,7 +45,9 @@ export class CookiesService {
 
   getUserId(): string | null {
     const name = 'userId=';
-    return this.getCookieValue(name);
+    const userId = this.getCookieValue(name);
+    console.log('Retrieved userId from cookies:', userId);
+    return userId;
   }
 
   getUserIdObservable(): Observable<string | null> {
@@ -73,23 +77,3 @@ export class CookiesService {
       userId + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
   }
 }
-
-// setToken(token: string, expirationDays: number): void {
-//   const date = new Date();
-//   date.setTime(date.getTime() + expirationDays * 24 * 60 * 60 * 1000);
-//   const expires = `expires=${date.toUTCString()}`;
-//   document.cookie = `myToken=${token}; ${expires};SameSite=None;Secure; HttpOnly" ;path=/`;
-// }
-
-// getToken(): string | null {
-//   const name = 'myToken=';
-//   return this.getCookieValue(name);
-// }
-
-// removeToken(): void {
-//   this.removeCookie('myToken');
-// }
-
-// removeCookie(cookieName: string): void {
-//   document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-// }

@@ -7,6 +7,7 @@ import { PriceFormatPipe } from '../../pipe/price-format.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { faTrash, faCalendarXmark } from '@fortawesome/free-solid-svg-icons';
+import { BillService } from 'src/app/services/bill.service';
 
 @Component({
   selector: 'app-cart',
@@ -23,13 +24,17 @@ export class CartComponent implements OnInit {
     private router: Router,
     private cookiesService: CookiesService,
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private billService: BillService
   ) {}
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe((cartItems) => {
       // Do something with the updated cart items
       this.cartItems = cartItems;
     });
+
+    const userId = this.cookiesService.getUserId();
+    console.log('User ID:', userId);
   }
 
   getTotalPrice(): number {
@@ -87,8 +92,22 @@ export class CartComponent implements OnInit {
 
   // RIGHT CART
   handleFormSubmission(formData: any) {
-    // Handle the form data received from the child component
     console.log('Form data from child component:', formData);
-    // Add additional logic as needed
+    const userId = this.cookiesService.getUserId(); // Get user ID from cookies (replace with actual method)
+    const products: any[] = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Extract only the productIds from the products array
+    const productIds = products.map((product) => product.productId);
+
+    this.billService.postOrder(formData, userId, productIds).subscribe({
+      next: (response) => {
+        console.log('Order submitted successfully!', response);
+        // Add any additional logic you need after a successful order submission
+      },
+      error: (error) => {
+        console.error('Error submitting order:', error);
+        // Handle errors as needed
+      },
+    });
   }
 }

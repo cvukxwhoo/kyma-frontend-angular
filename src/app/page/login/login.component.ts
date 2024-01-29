@@ -80,11 +80,13 @@ export class LoginComponent implements OnInit {
     this.authService.signUp(email, password, fullName).subscribe({
       next: (res) => {
         this.loading = false;
-        const token = res.token; // Assuming your API response has a 'token' property
+        const token = res.token;
+        const userId = res.userId;
         this.cookiesService.setToken(token, 7);
-        alert('Sign Up Successfully. Please Log In!');
-        this.registerForm.reset();
-        location.reload();
+        this.cookiesService.setUserId(userId, 7);
+        alert('Login Successfully!');
+        this.loginForm.reset();
+        this.router.navigate(['']);
       },
       error: (error) => {
         this.loading = false;
@@ -102,8 +104,10 @@ export class LoginComponent implements OnInit {
     this.authService.signIn(email, password).subscribe({
       next: (res) => {
         this.loading = false;
-        const token = res.token; // Assuming your API response has a 'token' property
+        const token = res.token;
+        const userId = res.userId; // Assuming your API response has a 'token' property
         this.cookiesService.setToken(token, 7);
+        this.cookiesService.setUserId(userId, 7);
         alert('Login Successfully!');
         this.loginForm.reset();
         this.router.navigate(['']); // Navigate to the home page or user dashboard

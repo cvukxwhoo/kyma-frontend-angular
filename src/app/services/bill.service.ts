@@ -9,7 +9,8 @@ import { environment } from '../environment';
 export class BillService {
   constructor(private http: HttpClient) {}
 
-  createBill(billData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/bill/submit`, billData);
+  postOrder(formData: any, userId: string, productIds: string[]) {
+    const orderData = { formData, userId, productIds };
+    return this.http.post(`${environment.apiUrl}/bill/submit`, orderData);
   }
 }

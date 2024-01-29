@@ -143,41 +143,8 @@ export class RightCartComponent implements OnInit {
 
   onSubmit() {
     if (this.paymentForm.valid) {
-      const billData = {
-        fullName: this.paymentForm.get('fullName').value,
-        email: this.paymentForm.get('email').value,
-        phoneNumber: this.paymentForm.get('phoneNumber').value,
-        address: this.paymentForm.get('address').value,
-        invoice: this.paymentForm.get('buyerCompany' || 'buyerIndividual')
-          .value,
-        companyName: this.paymentForm.get('companyName').value,
-        taxCode: this.paymentForm.get('taxCode').value,
-        addressCompany: this.paymentForm.get('addressCompany').value,
-        textareaContent: this.paymentForm.get('textareaContent'),
-        cartData: this.cartItems.map((item) => ({
-          productId: item.productId,
-          quantity: item.quantity,
-          title: item.title,
-          price: item.price,
-          imageUrl: item.imageUrl,
-        })),
-        customer: this.userId,
-      };
-
-      console.log(billData);
-
       // Emit an event with the form values
-      // this.submitForm.emit(this.paymentForm.value);
-
-      this.billService.createBill(billData).subscribe({
-        next: (res) => {
-          console.log('Bill created successfully', res);
-          this.paymentForm.reset();
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+      this.submitForm.emit(this.paymentForm.value);
     }
   }
 }
