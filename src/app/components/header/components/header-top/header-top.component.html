@@ -8,12 +8,19 @@
         alt=""
       />
     </a>
-    <form class="header-search flex">
-      <input class="header-input-search" type="text" placeholder="Tìm kiếm" />
-      <button class="header-btn-search" type="submit">
+    <div class="header-search flex">
+      <input
+        [(ngModel)]="searchTerm"
+        class="header-input-search"
+        placeholder="Tìm kiếm"
+      />
+      <button (click)="search()" class="header-btn-search" type="submit">
         <mat-icon>search</mat-icon>
       </button>
-    </form>
+    </div>
+    <div *ngFor="let result of searchResults">
+      {{ result.name }}
+    </div>
     <div class="header-right flex">
       <a (click)="handleSignIn()" class="header-signIn flex">
         <div class="header-avt">

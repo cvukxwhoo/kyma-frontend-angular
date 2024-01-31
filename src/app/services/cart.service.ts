@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -11,7 +11,7 @@ export class CartService {
   private countItems: number = 0;
 
   private cartItemsSubject = new BehaviorSubject<any[]>([]);
-  cartItems$ = this.cartItemsSubject.asObservable();
+  @Output() cartItems$ = this.cartItemsSubject.asObservable();
 
   private countItemsSubject = new BehaviorSubject<any>('');
   countItems$ = this.countItemsSubject.asObservable();
@@ -53,11 +53,11 @@ export class CartService {
     this.updateCountItemsSubject();
   }
 
-  private updateCartItemsSubject(): void {
+  updateCartItemsSubject(): void {
     this.cartItemsSubject.next([...this.cartItems]);
   }
 
-  private updateCountItemsSubject(): void {
+  updateCountItemsSubject(): void {
     this.countItemsSubject.next(this.countItems);
   }
 

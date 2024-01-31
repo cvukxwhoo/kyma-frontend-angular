@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 
 // module
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderTopComponent } from './components/header/components/header-top/header-top.component';
 import { HeaderBottomComponent } from './components/header/components/header-bottom/header-bottom.component';
@@ -31,6 +32,10 @@ import { CateProductComponent } from './page/cate-product/cate-product.component
 import { BreadcrumbComponent } from './page/home/components/breadcrumb/breadcrumb.component';
 import { ChangePasswordComponent } from './page/change-password/change-password.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AdminComponent } from './page/admin/admin.component';
+import { CookieService } from 'ngx-cookie-service';
+import { SidebarComponent } from './page/admin/components/sidebar/sidebar.component';
+import { ContentAdminComponent } from './page/admin/components/content-admin/content-admin.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +56,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CateProductComponent,
     BreadcrumbComponent,
     ChangePasswordComponent,
+    AdminComponent,
+    SidebarComponent,
+    ContentAdminComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,8 +74,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatRadioModule,
     HttpClientModule,
     FontAwesomeModule,
+    MatDividerModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

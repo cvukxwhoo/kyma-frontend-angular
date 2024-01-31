@@ -11,10 +11,17 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { DetailsProductComponent } from './page/details-product/details-product.component';
 import { CateProductComponent } from './page/cate-product/cate-product.component';
 import { ChangePasswordComponent } from './page/change-password/change-password.component';
+import { AdminComponent } from './page/admin/admin.component';
+import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate: [AdminAuthGuardService],
+  },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
   {
     path: 'products/path/:pathName',

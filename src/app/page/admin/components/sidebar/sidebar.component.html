@@ -1,0 +1,44 @@
+<div class="sidebar-container">
+  <div class="sidebar-wrapper">
+    <div class="sidebar-menu pointer flex" [style.gap]="'10px'">
+      <fa-icon [icon]="faBars"></fa-icon>
+      <div [style.font-size]="'30px'">Menu</div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="nav-items">
+      <a
+        (click)="handleProductHidden()"
+        class="nav-item flex pointer"
+        [style.gap]="'10px'"
+      >
+        <fa-icon [icon]="faChevronDown"></fa-icon>
+        <div class="nav-item-title">Products</div>
+      </a>
+      <mat-divider></mat-divider>
+      <ul *ngIf="!isProductHidden" class="product-items">
+        <li><div class="nav-item-title">Products</div></li>
+        <mat-divider></mat-divider>
+        <li><div class="nav-item-title">Add Products</div></li>
+        <mat-divider></mat-divider>
+      </ul>
+    </div>
+    <div class="nav-items">
+      <a
+        (click)="handleBillHidden()"
+        class="nav-item flex pointer"
+        [style.gap]="'10px'"
+      >
+        <fa-icon [icon]="faChevronDown"></fa-icon>
+        <div class="nav-item-title">Bills</div></a
+      >
+      <mat-divider></mat-divider>
+      <ul *ngIf="!isBillHidden" class="product-items">
+        <li><div class="nav-item-title">Bills</div></li>
+        <mat-divider></mat-divider>
+        <li><div class="nav-item-title">Bill Details</div></li>
+        <mat-divider></mat-divider>
+      </ul>
+    </div>
+  </div>
+</div>

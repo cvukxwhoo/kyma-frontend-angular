@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { CookiesService } from 'src/app/services/cookies.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +13,12 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
   selectedTab = 0;
-  loading = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cookiesService: CookiesService
+    private cookieService: CookieService
   ) {
     this.createFormLogin();
     this.createFormRegister();
@@ -53,7 +52,7 @@ export class LoginComponent implements OnInit {
       password: [
         '',
         [
-          Validators.minLength(6),
+          Validators.minLength(8),
           Validators.required,
           Validators.pattern(/^[a-zA-Z0-9]+$/),
         ],
@@ -72,24 +71,17 @@ export class LoginComponent implements OnInit {
   get fullnameRegisterFormControl() {
     return this.registerForm.get('fullName');
   }
-  signUp() {
-    this.loading = true;
 
+  signUp() {
     const { email, password, fullName } = this.registerForm.value;
 
     this.authService.signUp(email, password, fullName).subscribe({
       next: (res) => {
-        this.loading = false;
-        const token = res.token;
-        const userId = res.userId;
-        this.cookiesService.setToken(token, 7);
-        this.cookiesService.setUserId(userId, 7);
-        alert('Login Successfully!');
-        this.loginForm.reset();
-        this.router.navigate(['']);
+        alert('Sign Up Successfully. Please Log In!');
+        this.registerForm.reset();
+        location.reload();
       },
       error: (error) => {
-        this.loading = false;
         console.error('Error during sign-up:', error);
         alert('Email has existed');
       },
@@ -97,23 +89,18 @@ export class LoginComponent implements OnInit {
   }
 
   signIn() {
-    this.loading = true;
-
     const { email, password } = this.loginForm.value;
-
     this.authService.signIn(email, password).subscribe({
       next: (res) => {
-        this.loading = false;
         const token = res.token;
         const userId = res.userId; // Assuming your API response has a 'token' property
-        this.cookiesService.setToken(token, 7);
-        this.cookiesService.setUserId(userId, 7);
+        this.cookieService.set('token', token, 7); // Expires in 1 day
+        localStorage.setItem('userId', userId);
         alert('Login Successfully!');
         this.loginForm.reset();
         this.router.navigate(['']); // Navigate to the home page or user dashboard
       },
       error: (err) => {
-        this.loading = false;
         alert('Email or password is incorrect');
       },
     });

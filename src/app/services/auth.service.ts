@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environment';
-import { Observable, MonoTypeOperatorFunction } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { CookiesService } from './cookies.service';
+import { CookieService } from 'ngx-cookie-service';
 import { CartService } from './cart.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +13,10 @@ import { CartService } from './cart.service';
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private cookiesService: CookiesService,
+    private cookieService: CookieService,
     private cartService: CartService
   ) {}
+
   signUp(email: string, password: string, fullName: string): Observable<any> {
     const body = { email, password, fullName };
     return this.http
@@ -40,21 +42,56 @@ export class AuthService {
   }
 
   private handleAuthentication(response: any): void {
-    const { token, userId } = response;
+    const { token } = response;
 
-    this.cookiesService.setToken(token, 30);
-
-    this.cookiesService.setUserId(userId, 14);
+    this.cookieService.set('token', token, 7);
   }
 
   logout(): void {
     // Remove token and userId from cookies
-    this.cookiesService.removeCookie('myToken', 'userId');
+    this.cookieService.delete('token');
     this.cartService.removeLocalStorage();
   }
 
   isAuthenticated(): boolean {
     // Check if the user is authenticated based on the presence of the token in cookies
-    return !!this.cookiesService.getToken();
+    return !!this.cookieService.get('token');
+  }
+
+  // getUserInfoFromToken(token: string) {
+  //   try {
+  //     const token = this.cookieService.get('token');
+  //     const decodedToken: any = jwtDecode(token);
+  //     console.log(decodedToken);
+  //     return decodedToken;
+  //   } catch (error) {
+  //     console.error('Error decoding token:', error);
+  //     return null;
+  //   }
+  // }
+
+  getToken(): string | null {
+    return this.cookieService.get('token');
+  }
+
+  // Method to decode the token and return user information
+  getUserInfoFromToken(): any {
+    const token = this.getToken();
+    if (token) {
+      try {
+        return jwtDecode(token);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  // New method to decode the token and return email
+  getIdFromToken(): string | null {
+    const userInfo = this.getUserInfoFromToken();
+    console.log('userInfo"', userInfo);
+    return userInfo ? userInfo.id : null;
   }
 }

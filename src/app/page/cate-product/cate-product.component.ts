@@ -49,7 +49,6 @@ export class CateProductComponent implements OnInit {
       next: (res) => {
         console.log(res.data);
         this.products = res.data;
-        this.cookiesService.setToken(String(res.data), 7);
       },
       error: (err) => {
         alert(' Get product is failed');
@@ -96,5 +95,7 @@ export class CateProductComponent implements OnInit {
       // Update the quantity property in the local products array
       selectedProduct.quantity = this.count;
     }
+
+    alert('Thêm sản phẩm thành công');
   }
 }

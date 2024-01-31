@@ -52,7 +52,6 @@ export class DetailsProductComponent {
     this.productService.getProductById(this.productId).subscribe({
       next: (res) => {
         this.product = res.data;
-        this.cookiesService.setToken(String(res.data), 7);
       },
       error: (err) => {
         alert('Email or password is incorrect');

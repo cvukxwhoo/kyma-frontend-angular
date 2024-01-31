@@ -5,20 +5,20 @@ import {
   RouterStateSnapshot,
   Router,
 } from '@angular/router';
-import { CookiesService } from './cookies.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuardService implements CanActivate {
-  constructor(public router: Router, private cookieService: CookiesService) {}
+  constructor(public router: Router, private cookieService: CookieService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
     // Check if the user is authenticated (you should implement your authentication logic here)
-    const isAuth = !!this.cookieService.getToken();
+    const isAuth = !!this.cookieService.get('token');
 
     if (isAuth) {
       return true;

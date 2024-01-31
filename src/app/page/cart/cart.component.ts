@@ -18,6 +18,7 @@ export class CartComponent implements OnInit {
   faTrash = faTrash;
   faCalendarXmark = faCalendarXmark;
   cartItems: any[] = [];
+  userId: string;
 
   constructor(
     private productService: ProductService,
@@ -32,9 +33,6 @@ export class CartComponent implements OnInit {
       // Do something with the updated cart items
       this.cartItems = cartItems;
     });
-
-    const userId = this.cookiesService.getUserId();
-    console.log('User ID:', userId);
   }
 
   getTotalPrice(): number {
@@ -88,25 +86,41 @@ export class CartComponent implements OnInit {
       // Update the local storage with the modified array
       localStorage.setItem('cart', JSON.stringify(this.cartItems));
     }
+
+    alert('Xoá sản phẩm thành công');
   }
 
-  // RIGHT CART
+  deleteAllItems() {
+    // Clear the cartItems array
+    this.cartItems = [];
+    alert('Xoá thành công tất cả các sản phẩm');
+    location.reload();
+    // Update the local storage with the empty array
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+  }
+
+  // Assuming this is part of your Angular component or service
   handleFormSubmission(formData: any) {
     console.log('Form data from child component:', formData);
-    const userId = this.cookiesService.getUserId(); // Get user ID from cookies (replace with actual method)
+
+    // Retrieve userId from local storage
+    const userId: string | null = localStorage.getItem('userId');
+
+    // Retrieve products from local storage
     const products: any[] = JSON.parse(localStorage.getItem('cart')) || [];
 
-    // Extract only the productIds from the products array
-    const productIds = products.map((product) => product.productId);
+    const orderData = {
+      formData,
+    };
 
-    this.billService.postOrder(formData, userId, productIds).subscribe({
+    // Make the HTTP request
+    this.billService.postOrder(orderData).subscribe({
       next: (response) => {
         console.log('Order submitted successfully!', response);
         // Add any additional logic you need after a successful order submission
       },
       error: (error) => {
         console.error('Error submitting order:', error);
-        // Handle errors as needed
       },
     });
   }

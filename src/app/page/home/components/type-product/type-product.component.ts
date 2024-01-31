@@ -28,7 +28,6 @@ export class TypeProductComponent implements OnInit {
     this.productService.getAllCategory().subscribe({
       next: (res) => {
         this.listCategory = res.data;
-        this.cookiesService.setToken(String(res.data), 7);
       },
       error: (err) => {
         alert('Cant Get Category');

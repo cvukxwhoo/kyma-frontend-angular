@@ -29,12 +29,6 @@ export class RightCartComponent implements OnInit {
       this.cartItems = cartItems;
     });
 
-    this.cookiesService
-      .getUserIdObservable()
-      .subscribe((userId: string | null) => {
-        this.userId = userId;
-      });
-
     this.createFormPayment();
   }
 

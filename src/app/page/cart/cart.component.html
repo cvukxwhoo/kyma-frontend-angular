@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header [cartItems]="cartItems"></app-header>
 <div class="cart-wrapper">
   <div class="cart-container">
     <!-- LEFT SIDE -->
@@ -11,7 +11,9 @@
             <th class="cart-description">Sản phẩm</th>
             <th class="price">Đơn giá</th>
             <th class="action">
-              <fa-icon [style.color]="'red'" [icon]="faTrash"></fa-icon>
+              <div (click)="deleteAllItems()">
+                <fa-icon [style.color]="'red'" [icon]="faTrash"></fa-icon>
+              </div>
             </th>
           </tr>
         </thead>
