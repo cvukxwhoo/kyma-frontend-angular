@@ -15,7 +15,7 @@ export class ProductService {
 
   // GET ALL PRODUCT
   getAllProducts(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/products`);
+    return this.http.get(`${environment.apiUrl}/product`);
   }
 
   getAllCategory(): Observable<any> {

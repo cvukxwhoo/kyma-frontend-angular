@@ -13,6 +13,7 @@ import { CateProductComponent } from './page/cate-product/cate-product.component
 import { ChangePasswordComponent } from './page/change-password/change-password.component';
 import { AdminComponent } from './page/admin/admin.component';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
+import { ContentAdminComponent } from './page/admin/components/content-admin/content-admin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +22,14 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     canActivate: [AdminAuthGuardService],
+    children: [
+      {
+        path: '',
+        component: ContentAdminComponent,
+      },
+    ],
   },
+
   { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
   {
     path: 'products/path/:pathName',

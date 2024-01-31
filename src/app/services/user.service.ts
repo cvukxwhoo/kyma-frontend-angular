@@ -13,9 +13,13 @@ import { Observable, throwError } from 'rxjs';
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  // GET INFOR USER
+  // // GET INFOR USER
+  // getUserDetails(): Observable<any> {
+  //   return this.http.get(`${environment.apiUrl}/user`);
+  // }
 
-  getUserDetails(): Observable<any> {
+  // GET ALl USER
+  getAllUser(): Observable<any> {
     return this.http.get(`${environment.apiUrl}/user`);
   }
 }

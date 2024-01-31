@@ -1,4 +1,6 @@
-<div class="admin-wrapper flex">
+<div class="admin-wrapper">
   <app-sidebar [style.flex]="'1'"></app-sidebar>
-  <app-content-admin [style.flex]="'5'"></app-content-admin>
+  <div [style.flex]="'4'">
+    <router-outlet name="user"></router-outlet>
+  </div>
 </div>

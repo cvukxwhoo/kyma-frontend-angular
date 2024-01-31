@@ -36,6 +36,7 @@ import { AdminComponent } from './page/admin/admin.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SidebarComponent } from './page/admin/components/sidebar/sidebar.component';
 import { ContentAdminComponent } from './page/admin/components/content-admin/content-admin.component';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { ContentAdminComponent } from './page/admin/components/content-admin/con
     HttpClientModule,
     FontAwesomeModule,
     MatDividerModule,
+    MatTableModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

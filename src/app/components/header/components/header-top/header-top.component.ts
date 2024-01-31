@@ -58,6 +58,7 @@ export class HeaderTopComponent implements OnInit {
 
   search() {
     this.searchTerms.next(this.searchTerm);
+    console.log(this.searchTerms);
   }
 
   private setupSearch() {
