@@ -13,8 +13,9 @@ import { CateProductComponent } from './page/cate-product/cate-product.component
 import { ChangePasswordComponent } from './page/change-password/change-password.component';
 import { AdminComponent } from './page/admin/admin.component';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
-import { ContentAdminComponent } from './page/admin/components/content-admin/content-admin.component';
-
+import { DashboardAdminComponent } from './page/admin/components/dashboard-admin/dashboard-admin.component';
+import { ProductAdminComponent } from './page/admin/components/product-admin/product-admin.component';
+import { AddProductAdminComponent } from './page/admin/components/add-product-admin/add-product-admin.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -24,8 +25,16 @@ const routes: Routes = [
     canActivate: [AdminAuthGuardService],
     children: [
       {
-        path: '',
-        component: ContentAdminComponent,
+        path: 'dashboard',
+        component: DashboardAdminComponent,
+      },
+      {
+        path: 'products',
+        component: ProductAdminComponent,
+      },
+      {
+        path: 'add-product',
+        component: AddProductAdminComponent,
       },
     ],
   },

@@ -35,8 +35,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminComponent } from './page/admin/admin.component';
 import { CookieService } from 'ngx-cookie-service';
 import { SidebarComponent } from './page/admin/components/sidebar/sidebar.component';
-import { ContentAdminComponent } from './page/admin/components/content-admin/content-admin.component';
 import { MatTableModule } from '@angular/material/table';
+import { DashboardAdminComponent } from './page/admin/components/dashboard-admin/dashboard-admin.component';
+import { ProductAdminComponent } from './page/admin/components/product-admin/product-admin.component';
+import { AddProductAdminComponent } from './page/admin/components/add-product-admin/add-product-admin.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { MatTableModule } from '@angular/material/table';
     ChangePasswordComponent,
     AdminComponent,
     SidebarComponent,
-    ContentAdminComponent,
+    DashboardAdminComponent,
+    ProductAdminComponent,
+    AddProductAdminComponent,
   ],
   imports: [
     BrowserModule,

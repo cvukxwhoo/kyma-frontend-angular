@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-content-admin',
-  templateUrl: './content-admin.component.html',
-  styleUrls: ['./content-admin.component.scss'],
+  selector: 'app-dashboard-admin',
+  templateUrl: './dashboard-admin.component.html',
+  styleUrls: ['./dashboard-admin.component.scss'],
 })
-export class ContentAdminComponent implements OnInit {
+export class DashboardAdminComponent implements OnInit {
   displayedColumns: string[] = ['fullName', 'email', 'role', 'id', 'signUp'];
   dataSource: any[] = [];
 
