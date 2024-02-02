@@ -17,9 +17,13 @@
       </a>
       <mat-divider></mat-divider>
       <ul *ngIf="!isProductHidden" class="product-items">
-        <li><div class="nav-item-title">Products</div></li>
+        <li [routerLink]="'products'">
+          <div class="nav-item-title">Products</div>
+        </li>
         <mat-divider></mat-divider>
-        <li><div class="nav-item-title">Add Products</div></li>
+        <li [routerLink]="'add-product'">
+          <div class="nav-item-title">Add Products</div>
+        </li>
         <mat-divider></mat-divider>
       </ul>
     </div>
@@ -34,9 +38,11 @@
       >
       <mat-divider></mat-divider>
       <ul *ngIf="!isBillHidden" class="product-items">
-        <li><div class="nav-item-title">Bills</div></li>
+        <li [routerLink]="'bills'"><div class="nav-item-title">Bills</div></li>
         <mat-divider></mat-divider>
-        <li><div class="nav-item-title">Bill Details</div></li>
+        <li [routerLink]="'bill-details'">
+          <div class="nav-item-title">Bill Details</div>
+        </li>
         <mat-divider></mat-divider>
       </ul>
     </div>

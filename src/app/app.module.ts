@@ -39,6 +39,10 @@ import { MatTableModule } from '@angular/material/table';
 import { DashboardAdminComponent } from './page/admin/components/dashboard-admin/dashboard-admin.component';
 import { ProductAdminComponent } from './page/admin/components/product-admin/product-admin.component';
 import { AddProductAdminComponent } from './page/admin/components/add-product-admin/add-product-admin.component';
+import { BillsComponent } from './page/admin/components/bills/bills.component';
+import { BillDetailsComponent } from './page/admin/components/bill-details/bill-details.component';
+import { EditProductDialog } from './page/admin/components/product-admin/components/edit-product-dialog/edit-product-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -64,6 +68,9 @@ import { AddProductAdminComponent } from './page/admin/components/add-product-ad
     DashboardAdminComponent,
     ProductAdminComponent,
     AddProductAdminComponent,
+    BillsComponent,
+    BillDetailsComponent,
+    EditProductDialog,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +88,7 @@ import { AddProductAdminComponent } from './page/admin/components/add-product-ad
     FontAwesomeModule,
     MatDividerModule,
     MatTableModule,
+    MatDialogModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

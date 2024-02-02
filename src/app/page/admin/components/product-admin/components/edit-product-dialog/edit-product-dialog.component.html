@@ -1,0 +1,93 @@
+<div class="edit-product-container">
+  <div class="header-edit flex">
+    <button mat-button [mat-dialog-close]="true">X</button>
+  </div>
+  <form [formGroup]="editProductForm">
+    <mat-form-field class="product-form-field" appearance="fill">
+      <mat-label>SKU</mat-label>
+      <input
+        matInput
+        placeholder="Your SKU"
+        formControlName="sku"
+        type="text"
+        [value]="data.data.code"
+      />
+      <mat-error *ngIf="editProductForm.get('sku').hasError('required')"
+        >Sku is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="product-form-field">
+      <mat-label>Sản phẩm</mat-label>
+      <input
+        matInput
+        placeholder="Sản phẩm"
+        formControlName="product"
+        type="text"
+        [value]="data.data.title"
+      />
+      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+        >Product is required</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="product-form-field">
+      <mat-label>Kiểu sán phẩm</mat-label>
+      <input
+        matInput
+        placeholder="Loại sản phẩm"
+        formControlName="type"
+        type="text"
+        [value]="data.data.byCategory.title"
+      />
+      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+        >Product is required</mat-error
+      >
+    </mat-form-field>
+
+    <!-- BY BRAND -->
+    <mat-form-field class="product-form-field">
+      <mat-label>Hãng</mat-label>
+      <input
+        matInput
+        placeholder="Hãng"
+        formControlName="brand"
+        type="text"
+        [value]="data.data.byBrand.name"
+      />
+      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+        >Product is required</mat-error
+      >
+    </mat-form-field>
+
+    <!-- PRICE -->
+    <mat-form-field class="product-form-field">
+      <mat-label>Giá</mat-label>
+      <input
+        matInput
+        placeholder="Giá"
+        formControlName="price"
+        type="text"
+        [value]="data.data.price"
+      />
+      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+        >Product is required</mat-error
+      >
+    </mat-form-field>
+
+    <!--DISCOUNT PRICE -->
+    <mat-form-field class="product-form-field">
+      <mat-label>Giá</mat-label>
+      <input
+        matInput
+        placeholder="Giá"
+        formControlName="discountPrice"
+        type="text"
+        [value]="data.data.discountPrice | priceFormat"
+      />
+      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+        >Product is required</mat-error
+      >
+    </mat-form-field>
+  </form>
+</div>

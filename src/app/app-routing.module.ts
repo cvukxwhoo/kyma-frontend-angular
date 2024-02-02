@@ -16,6 +16,8 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { DashboardAdminComponent } from './page/admin/components/dashboard-admin/dashboard-admin.component';
 import { ProductAdminComponent } from './page/admin/components/product-admin/product-admin.component';
 import { AddProductAdminComponent } from './page/admin/components/add-product-admin/add-product-admin.component';
+import { BillsComponent } from './page/admin/components/bills/bills.component';
+import { BillDetailsComponent } from './page/admin/components/bill-details/bill-details.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
@@ -35,6 +37,14 @@ const routes: Routes = [
       {
         path: 'add-product',
         component: AddProductAdminComponent,
+      },
+      {
+        path: 'bills',
+        component: BillsComponent,
+      },
+      {
+        path: 'bill-details',
+        component: BillDetailsComponent,
       },
     ],
   },

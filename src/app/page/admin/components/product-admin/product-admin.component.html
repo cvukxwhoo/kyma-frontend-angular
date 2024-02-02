@@ -1,32 +1,9 @@
 <div class="product-admin-container">
   <h1>Products</h1>
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="product">
-      <th mat-header-cell *matHeaderCellDef>PRODUCTS</th>
-      <td mat-cell *matCellDef="let dataSource">
-        {{ dataSource.name }}
-      </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>TYPE</th>
-      <td mat-cell *matCellDef="let dataSource">
-        {{ dataSource.byCategory }}
-      </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="inventory">
-      <th mat-header-cell *matHeaderCellDef>INVENTORY</th>
-      <td mat-cell *matCellDef="let dataSource">
-        {{ dataSource.quanities }}
-      </td>
-    </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="sku">
@@ -36,23 +13,63 @@
       </td>
     </ng-container>
 
+    <!-- Position Column -->
+    <ng-container matColumnDef="product">
+      <th mat-header-cell *matHeaderCellDef>Sản phẩm</th>
+      <td class="product-row flex" mat-cell *matCellDef="let dataSource">
+        <img [src]="dataSource.imageUrl" alt="" />
+        {{ dataSource.name }}
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Loại sản phẩm</th>
+      <td mat-cell *matCellDef="let dataSource">
+        {{ dataSource.byCategory.title }}
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="brand">
+      <th mat-header-cell *matHeaderCellDef>Hãng</th>
+      <td mat-cell *matCellDef="let dataSource">
+        {{ dataSource.byBrand.name }}
+      </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="inventory">
+      <th mat-header-cell *matHeaderCellDef>Tồn kho</th>
+      <td mat-cell *matCellDef="let dataSource">
+        {{ dataSource.quanities }}
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>PRICE</th>
+      <th mat-header-cell *matHeaderCellDef>Giá</th>
       <td mat-cell *matCellDef="let dataSource">
         {{ dataSource.price | priceFormat }} VNĐ
       </td>
     </ng-container>
 
     <ng-container matColumnDef="discountPrice">
-      <th mat-header-cell *matHeaderCellDef>DISCOUNT PRICE</th>
+      <th mat-header-cell *matHeaderCellDef>Giá khuyến mãi</th>
       <td mat-cell *matCellDef="let dataSource">
         {{ dataSource.discountPrice | priceFormat }} VNĐ
       </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
-      <td mat-cell *matCellDef="let dataSource">Edit</td>
+      <th mat-header-cell *matHeaderCellDef>Hành động</th>
+      <td
+        (click)="editProduct(dataSource._id)"
+        mat-cell
+        class="edit-product"
+        *matCellDef="let dataSource"
+      >
+        Sửa <fa-icon [icon]="faPenToSquare"></fa-icon>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
