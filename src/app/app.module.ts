@@ -43,6 +43,8 @@ import { BillsComponent } from './page/admin/components/bills/bills.component';
 import { BillDetailsComponent } from './page/admin/components/bill-details/bill-details.component';
 import { EditProductDialog } from './page/admin/components/product-admin/components/edit-product-dialog/edit-product-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PopupEditSuccessComponent } from './components/popup-edit-success/popup-edit-success.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     BillsComponent,
     BillDetailsComponent,
     EditProductDialog,
+    PopupEditSuccessComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +92,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDividerModule,
     MatTableModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

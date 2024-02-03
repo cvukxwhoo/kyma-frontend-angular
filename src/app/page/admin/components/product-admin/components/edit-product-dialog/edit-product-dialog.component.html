@@ -2,7 +2,8 @@
   <div class="header-edit flex">
     <button mat-button [mat-dialog-close]="true">X</button>
   </div>
-  <form [formGroup]="editProductForm">
+  <h1 class="title-edit">Thông tin sản phẩm</h1>
+  <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="product-form-field" appearance="fill">
       <mat-label>SKU</mat-label>
       <input
@@ -89,5 +90,30 @@
         >Product is required</mat-error
       >
     </mat-form-field>
+
+    <!-- QUANITIES -->
+    <mat-form-field class="product-form-field">
+      <mat-label>Tồn kho</mat-label>
+      <input
+        matInput
+        placeholder="Tồn kho"
+        formControlName="quanities"
+        type="text"
+        [value]="data.data.quanities | priceFormat"
+      />
+      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+        >Product is required</mat-error
+      >
+    </mat-form-field>
+    <div class="button-submit flex">
+      <button
+        mat-stroked-button
+        (click)="openSnackBar('Thành công')"
+        type="submit"
+      >
+        Xác nhận
+      </button>
+      <button mat-button [mat-dialog-close]="true">Quay lại</button>
+    </div>
   </form>
 </div>

@@ -34,4 +34,12 @@ export class ProductService {
   getProductById(productId: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/product/details/${productId}`);
   }
+
+  // UPDATE PRODUCTS
+  updateProduct(productId: string, formData: any): Observable<any> {
+    return this.http.put(
+      `${environment.apiUrl}/product/${productId}`,
+      formData
+    );
+  }
 }
