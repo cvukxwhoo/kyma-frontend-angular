@@ -30,22 +30,22 @@ export class EditProductDialog implements OnInit {
 
   createFormEdit() {
     this.editProductForm = this.fb.group({
-      sku: [this.data.data.code, [Validators.required]],
-      product: [this.data.data.title, [Validators.required]],
+      code: [this.data.data.code, [Validators.required]],
+      title: [this.data.data.title, [Validators.required]],
       type: [this.data.data.byCategory.title, [Validators.required]],
       brand: [this.data.data.byBrand.name, [Validators.required]],
       price: [this.data.data.price, [Validators.required]],
-      discountPrice: [this.data.data.discountPrice, [Validators.required]],
+      discountPrice: [this.data.data.discountPrice],
       quanities: [this.data.data.quanities, [Validators.required]],
     });
   }
 
-  get skuProductFormControl() {
-    return this.editProductForm.get('sku');
+  get codeProductFormControl() {
+    return this.editProductForm.get('code');
   }
 
   get productProductFormControl() {
-    return this.editProductForm.get('product');
+    return this.editProductForm.get('title');
   }
   get typeProductFormControl() {
     return this.editProductForm.get('type');
@@ -54,18 +54,31 @@ export class EditProductDialog implements OnInit {
     return this.editProductForm.get('brand');
   }
 
+  get priceProductFormControl() {
+    return this.editProductForm.get('price');
+  }
+
+  get discountPriceProductFormControl() {
+    return this.editProductForm.get('discountPrice');
+  }
+
+  get quanitiesProductFormControl() {
+    return this.editProductForm.get('inventory');
+  }
+
   openSnackBar(action: string) {
     this._snackBar.openFromComponent(PopupEditSuccessComponent, {
       duration: this.durationInSeconds * 1000,
     });
   }
 
-  onSubmit() {
+  onSubmit(productId: string) {
     const formData = this.editProductForm.value;
-    console.log(formData);
-    this.productService.updateProduct(this.data.data._id, formData).subscribe({
+
+    this.productService.updateProduct(productId, formData).subscribe({
       next: (response) => {
-        console.log('Product updated successfully:', response);
+        console.log('Product updated successfully:', response.data);
+        window.location.reload();
         // Handle success, e.g., show a success message or navigate to another page
       },
       error: (error) => {

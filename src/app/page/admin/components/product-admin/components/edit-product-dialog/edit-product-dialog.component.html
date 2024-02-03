@@ -3,17 +3,17 @@
     <button mat-button [mat-dialog-close]="true">X</button>
   </div>
   <h1 class="title-edit">Thông tin sản phẩm</h1>
-  <form [formGroup]="editProductForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="editProductForm" (ngSubmit)="onSubmit(data.data._id)">
     <mat-form-field class="product-form-field" appearance="fill">
       <mat-label>SKU</mat-label>
       <input
         matInput
         placeholder="Your SKU"
-        formControlName="sku"
+        formControlName="code"
         type="text"
         [value]="data.data.code"
       />
-      <mat-error *ngIf="editProductForm.get('sku').hasError('required')"
+      <mat-error *ngIf="editProductForm.get('code').hasError('required')"
         >Sku is required</mat-error
       >
     </mat-form-field>
@@ -23,11 +23,11 @@
       <input
         matInput
         placeholder="Sản phẩm"
-        formControlName="product"
+        formControlName="title"
         type="text"
         [value]="data.data.title"
       />
-      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+      <mat-error *ngIf="editProductForm.get('title').hasError('required')"
         >Product is required</mat-error
       >
     </mat-form-field>
@@ -41,7 +41,7 @@
         type="text"
         [value]="data.data.byCategory.title"
       />
-      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+      <mat-error *ngIf="editProductForm.get('type').hasError('required')"
         >Product is required</mat-error
       >
     </mat-form-field>
@@ -56,7 +56,7 @@
         type="text"
         [value]="data.data.byBrand.name"
       />
-      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+      <mat-error *ngIf="editProductForm.get('brand').hasError('required')"
         >Product is required</mat-error
       >
     </mat-form-field>
@@ -71,7 +71,7 @@
         type="text"
         [value]="data.data.price"
       />
-      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+      <mat-error *ngIf="editProductForm.get('price').hasError('required')"
         >Product is required</mat-error
       >
     </mat-form-field>
@@ -86,9 +86,6 @@
         type="text"
         [value]="data.data.discountPrice | priceFormat"
       />
-      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
-        >Product is required</mat-error
-      >
     </mat-form-field>
 
     <!-- QUANITIES -->
@@ -101,11 +98,12 @@
         type="text"
         [value]="data.data.quanities | priceFormat"
       />
-      <mat-error *ngIf="editProductForm.get('product').hasError('required')"
+      <mat-error *ngIf="editProductForm.get('quanities').hasError('required')"
         >Product is required</mat-error
       >
     </mat-form-field>
     <div class="button-submit flex">
+      <button mat-button [mat-dialog-close]="true">Quay lại</button>
       <button
         mat-stroked-button
         (click)="openSnackBar('Thành công')"
@@ -113,7 +111,6 @@
       >
         Xác nhận
       </button>
-      <button mat-button [mat-dialog-close]="true">Quay lại</button>
     </div>
   </form>
 </div>

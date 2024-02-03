@@ -24,6 +24,7 @@
   > form {
     width: 80%;
     margin: 0 auto;
+    padding-bottom: 20px;
 
     .product-form-field {
       width: 100%;
@@ -42,7 +43,7 @@
 
   .button-submit {
     flex-direction: row-reverse;
-    margin-bottom: 20px;
+    gap: 10px;
 
     > button {
       padding: 10px;
