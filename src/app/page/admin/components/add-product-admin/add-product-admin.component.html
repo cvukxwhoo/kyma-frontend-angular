@@ -1,1 +1,257 @@
-<p>add-product-admin works!</p>
+<div class="add-product-container">
+  <div class="wrapper">
+    <strong
+      ><h1 class="flex" [style.justify-content]="'center'">
+        Thông Tin Sản Phẩm
+      </h1></strong
+    >
+    <form [formGroup]="addProductForm" (ngSubmit)="onSubmit()">
+      <div class="form-wrapper">
+        <!-- LEFT -->
+        <div class="left">
+          <!-- TITLE -->
+          <mat-label>Tên sản phẩm *</mat-label>
+          <mat-form-field
+            [style.margin-top]="'10px'"
+            class="title-product"
+            appearance="outline"
+          >
+            <input
+              matInput
+              placeholder="Tên sản phẩm"
+              formControlName="title"
+              type="text"
+            />
+            <mat-error *ngIf="addProductForm.get('title').hasError('required')"
+              >Tên sản phẩm không được bỏ trống</mat-error
+            >
+          </mat-form-field>
+
+          <!-- ROW 2 -->
+          <div [style.gap]="'20px'" class="flex">
+            <div [style.width]="'50%'">
+              <!-- SKU -->
+              <mat-label>SKU *</mat-label>
+              <mat-form-field
+                [style.margin-top]="'10px'"
+                class="code-product"
+                appearance="outline"
+              >
+                <input
+                  matInput
+                  placeholder="SKU"
+                  formControlName="code"
+                  type="text"
+                />
+                <mat-error
+                  *ngIf="addProductForm.get('code').hasError('required')"
+                  >Sku không được bỏ trống</mat-error
+                >
+              </mat-form-field>
+            </div>
+
+            <div [style.width]="'50%'">
+              <!-- QUANITIES -->
+              <mat-label>Số lượng sản phẩm *</mat-label>
+              <mat-form-field
+                [style.margin-top]="'10px'"
+                class="title-product"
+                appearance="outline"
+              >
+                <input
+                  matInput
+                  placeholder="Số lượng sản phẩm"
+                  formControlName="quanities"
+                  type="text"
+                />
+                <mat-error
+                  *ngIf="addProductForm.get('title').hasError('required')"
+                  >Số lượng sản phẩm không được bỏ trống</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- ROW 3 -->
+          <div [style.gap]="'20px'" class="flex">
+            <div [style.width]="'50%'">
+              <mat-label>Loại sản phẩm *</mat-label>
+              <!-- CATEGORY -->
+              <mat-form-field
+                [style.margin-top]="'10px'"
+                class="title-product"
+                appearance="outline"
+              >
+                <mat-select
+                  placeholder="--"
+                  formControlName="category"
+                  required
+                  (selectionChange)="onCategoryChange()"
+                >
+                  <mat-option>--</mat-option>
+                  <mat-option
+                    *ngFor="let category of categories"
+                    [value]="category._id"
+                  >
+                    {{ category.title }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="addProductForm.get('category').hasError('required')"
+                  >Loại sản phẩm không được bỏ trống</mat-error
+                >
+              </mat-form-field>
+            </div>
+
+            <div [style.width]="'50%'">
+              <mat-label>Mục sản phẩm *</mat-label>
+              <mat-form-field
+                [style.margin-top]="'10px'"
+                class="title-product"
+                appearance="outline"
+              >
+                <mat-select placeholder="--" formControlName="paths" required>
+                  <mat-option>--</mat-option>
+                  <mat-option *ngFor="let path of paths" [value]="path._id">
+                    {{ path.title }}
+                  </mat-option>
+                </mat-select>
+                <mat-error
+                  *ngIf="addProductForm.get('paths').hasError('required')"
+                  >Mục sản phẩm không được bỏ trống</mat-error
+                >
+              </mat-form-field>
+            </div>
+          </div>
+
+          <!-- ROW 4 -->
+          <!-- FEATURES -->
+          <mat-label
+            >Các tính năng sản phẩm * (Sau mỗi tính năng cách ra và gõ -
+            )</mat-label
+          >
+          <mat-form-field
+            [style.margin-top]="'10px'"
+            class="title-product"
+            appearance="outline"
+          >
+            <input
+              matInput
+              placeholder="Tính năng sản phẩm"
+              formControlName="features"
+              type="text"
+            />
+            <mat-error
+              *ngIf="addProductForm.get('features').hasError('required')"
+              >Tính năng sản phẩm không được bỏ trống</mat-error
+            >
+          </mat-form-field>
+
+          <!-- ROW 5 -->
+          <input type="file" formControlName="image" />
+        </div>
+
+        <!-- RIGHT -->
+        <div class="right">
+          <!-- PRICE -->
+          <mat-label>Giá sản phẩm *</mat-label>
+          <mat-form-field
+            [style.margin-top]="'10px'"
+            class="price-product"
+            appearance="outline"
+          >
+            <div class="flex">
+              <input
+                matInput
+                placeholder="0,00"
+                formControlName="price"
+                type="text"
+              />
+              VNĐ
+            </div>
+            <mat-error *ngIf="addProductForm.get('price').hasError('required')"
+              >Giá sản phẩm không được bỏ trống</mat-error
+            >
+          </mat-form-field>
+
+          <!-- DISCOUNT PRICE -->
+          <mat-label>Giá khuyến mãi *</mat-label>
+          <mat-form-field
+            [style.margin-top]="'10px'"
+            class="price-product"
+            appearance="outline"
+          >
+            <div class="flex">
+              <input
+                matInput
+                placeholder="0,00"
+                formControlName="discountPrice"
+                type="text"
+              />
+              VNĐ
+            </div>
+          </mat-form-field>
+
+          <!-- WARRANTY PERIOD -->
+          <mat-label>Bảo hành</mat-label>
+          <mat-form-field
+            [style.margin-top]="'10px'"
+            class="price-product"
+            appearance="outline"
+          >
+            <div class="flex">
+              <input
+                matInput
+                placeholder="0"
+                formControlName="warrantyPeriod"
+                type="number"
+                min="0"
+              />
+              tháng
+            </div>
+          </mat-form-field>
+
+          <!-- ORIGIN  -->
+          <mat-label>Xuất xứ</mat-label>
+          <mat-form-field
+            [style.margin-top]="'10px'"
+            class="price-product"
+            appearance="outline"
+          >
+            <div class="flex">
+              <input
+                matInput
+                placeholder="Trung Quốc"
+                formControlName="origin"
+                type="text"
+              />
+            </div>
+          </mat-form-field>
+
+          <mat-label>Thương hiệu sản phẩm *</mat-label>
+          <!-- BRAND -->
+          <mat-form-field
+            class="price-product"
+            [style.margin-top]="'10px'"
+            appearance="outline"
+          >
+            <mat-select placeholder="--" formControlName="brand" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let brand of brands" [value]="brand._id">
+                {{ brand.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="addProductForm.get('brand').hasError('required')"
+              >Thương hiệu sản phẩm không được bỏ trống</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="btn-submit flex">
+        <button type="submit">Xác nhận</button>
+        <button [routerLink]="'/admin/products'">Quay lại</button>
+      </div>
+    </form>
+  </div>
+</div>

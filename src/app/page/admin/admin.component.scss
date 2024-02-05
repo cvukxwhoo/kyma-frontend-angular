@@ -1,4 +1,8 @@
 .admin-wrapper {
   position: relative;
   display: flex;
+
+  .content-admin-page {
+    border-left: 1px solid #c0c0c0;
+  }
 }

@@ -1,5 +1,8 @@
 <div class="product-admin-container">
-  <h1>Products</h1>
+  <div class="product-header flex">
+    <h1>Sản Phẩm</h1>
+    <button [routerLink]="'/admin/add-product'">Thêm Sản Phẩm</button>
+  </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <!--- Note that these columns can be defined in any order.

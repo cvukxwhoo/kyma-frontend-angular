@@ -19,6 +19,12 @@ export class CategoryService {
   }
 
   getPathsByCategory(categoryName: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/${categoryName}/paths`);
+    return this.http.get(
+      `${environment.apiUrl}/category/${categoryName}/paths`
+    );
+  }
+
+  getPathsByCategoryId(categoryId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/category/paths/${categoryId}`);
   }
 }

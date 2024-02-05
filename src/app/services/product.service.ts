@@ -42,4 +42,9 @@ export class ProductService {
       formData
     );
   }
+
+  // ADD PRODUCT
+  createProduct(formData: any): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/product/create`, formData);
+  }
 }
