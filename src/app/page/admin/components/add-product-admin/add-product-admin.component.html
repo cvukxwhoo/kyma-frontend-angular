@@ -84,7 +84,7 @@
               >
                 <mat-select
                   placeholder="--"
-                  formControlName="category"
+                  formControlName="categoryId"
                   required
                   (selectionChange)="onCategoryChange()"
                 >
@@ -97,7 +97,7 @@
                   </mat-option>
                 </mat-select>
                 <mat-error
-                  *ngIf="addProductForm.get('category').hasError('required')"
+                  *ngIf="addProductForm.get('categoryId').hasError('required')"
                   >Loại sản phẩm không được bỏ trống</mat-error
                 >
               </mat-form-field>
@@ -110,14 +110,14 @@
                 class="title-product"
                 appearance="outline"
               >
-                <mat-select placeholder="--" formControlName="paths" required>
+                <mat-select placeholder="--" formControlName="pathId" required>
                   <mat-option>--</mat-option>
                   <mat-option *ngFor="let path of paths" [value]="path._id">
                     {{ path.title }}
                   </mat-option>
                 </mat-select>
                 <mat-error
-                  *ngIf="addProductForm.get('paths').hasError('required')"
+                  *ngIf="addProductForm.get('pathId').hasError('required')"
                   >Mục sản phẩm không được bỏ trống</mat-error
                 >
               </mat-form-field>
@@ -235,13 +235,14 @@
             [style.margin-top]="'10px'"
             appearance="outline"
           >
-            <mat-select placeholder="--" formControlName="brand" required>
+            <mat-select placeholder="--" formControlName="brandId" required>
               <mat-option>--</mat-option>
               <mat-option *ngFor="let brand of brands" [value]="brand._id">
                 {{ brand.name }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="addProductForm.get('brand').hasError('required')"
+            <mat-error
+              *ngIf="addProductForm.get('brandId').hasError('required')"
               >Thương hiệu sản phẩm không được bỏ trống</mat-error
             >
           </mat-form-field>

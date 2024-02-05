@@ -53,13 +53,13 @@ export class AddProductAdminComponent implements OnInit {
       title: ['', [Validators.required]],
       code: ['', [Validators.required]],
       quanities: ['', [Validators.required]],
-      paths: ['', [Validators.required]],
-      category: ['', [Validators.required]],
+      pathId: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
       price: ['', [Validators.required]],
       discountPrice: [''],
       warrantyPeriod: [''],
       origin: [''],
-      brand: [''],
+      brandId: [''],
       features: ['', [Validators.required]],
       image: ['', Validators.required],
     });
@@ -74,7 +74,7 @@ export class AddProductAdminComponent implements OnInit {
   }
 
   get categoryProductFormControl() {
-    return this.addProductForm.get('category');
+    return this.addProductForm.get('categoryId');
   }
 
   get quanitiesProductFormControl() {
@@ -82,11 +82,11 @@ export class AddProductAdminComponent implements OnInit {
   }
 
   get pathsProductFormControl() {
-    return this.addProductForm.get('paths');
+    return this.addProductForm.get('pathId');
   }
 
   get brandProductFormControl() {
-    return this.addProductForm.get('brand');
+    return this.addProductForm.get('brandId');
   }
 
   get featuresProductFormControl() {
@@ -115,7 +115,7 @@ export class AddProductAdminComponent implements OnInit {
   }
 
   onCategoryChange() {
-    const selectedCategoryId = this.addProductForm.get('category').value;
+    const selectedCategoryId = this.addProductForm.get('categoryId').value;
 
     this.categoryService.getPathsByCategoryId(selectedCategoryId).subscribe({
       next: (data) => {
@@ -137,27 +137,28 @@ export class AddProductAdminComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const formData = new FormData();
-    formData.append('title', this.addProductForm.get('title').value);
-    formData.append('code', this.addProductForm.get('code').value);
-    formData.append('quanities', this.addProductForm.get('quanities').value);
-    formData.append('paths', this.addProductForm.get('paths').value);
-    formData.append('category', this.addProductForm.get('category').value);
-    formData.append('price', this.addProductForm.get('price').value);
-    formData.append(
-      'discountPrice',
-      this.addProductForm.get('discountPrice').value
-    );
-    formData.append(
-      'warrantyPeriod',
-      this.addProductForm.get('warrantyPeriod').value
-    );
-    formData.append('origin', this.addProductForm.get('origin').value);
-    formData.append('brand', this.addProductForm.get('brand').value);
+    // const formData = new FormData();
+    // formData.append('title', this.addProductForm.get('title').value);
+    // formData.append('code', this.addProductForm.get('code').value);
+    // formData.append('quanities', this.addProductForm.get('quanities').value);
+    // formData.append('paths', this.addProductForm.get('paths').value);
+    // formData.append('category', this.addProductForm.get('category').value);
+    // formData.append('price', this.addProductForm.get('price').value);
+    // formData.append(
+    //   'discountPrice',
+    //   this.addProductForm.get('discountPrice').value
+    // );
+    // formData.append(
+    //   'warrantyPeriod',
+    //   this.addProductForm.get('warrantyPeriod').value
+    // );
+    // formData.append('origin', this.addProductForm.get('origin').value);
+    // formData.append('brand', this.addProductForm.get('brand').value);
 
-    formData.append('features', this.addProductForm.get('features').value);
+    // formData.append('features', this.addProductForm.get('features').value);
 
-    formData.append('image', this.addProductForm.get('image').value);
+    // formData.append('image', this.addProductForm.get('image').value);
+    const formData = this.addProductForm.value;
     console.log(formData);
 
     this.productService.createProduct(formData).subscribe({
