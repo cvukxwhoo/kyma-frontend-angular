@@ -12,7 +12,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cate-product.component.scss'],
 })
 export class CateProductComponent implements OnInit {
-  quantity: number;
+  quanity: number;
   categoryName: string;
   count: number = 0;
   products: any[];
@@ -72,8 +72,8 @@ export class CateProductComponent implements OnInit {
 
   //   if (selectedProduct) {
   //     this.cartService.addToCart(selectedProduct);
-  //     // Update the quantity property in the local products array
-  //     selectedProduct.quantity = this.count;
+  //     // Update the quanity property in the local products array
+  //     selectedProduct.quanity = this.count;
   //   }
   // }
 
@@ -92,8 +92,8 @@ export class CateProductComponent implements OnInit {
       // Add the product to the cart with count information
       this.cartService.addToCart(selectedProduct, this.count);
 
-      // Update the quantity property in the local products array
-      selectedProduct.quantity = this.count;
+      // Update the quanity property in the local products array
+      selectedProduct.quanity = this.count;
     }
 
     alert('Thêm sản phẩm thành công');

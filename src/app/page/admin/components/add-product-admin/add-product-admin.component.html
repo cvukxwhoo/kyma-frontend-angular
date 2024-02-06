@@ -62,7 +62,7 @@
                   matInput
                   placeholder="Số lượng sản phẩm"
                   formControlName="quanities"
-                  type="text"
+                  type="number"
                 />
                 <mat-error
                   *ngIf="addProductForm.get('title').hasError('required')"
@@ -127,7 +127,7 @@
           <!-- ROW 4 -->
           <!-- FEATURES -->
           <mat-label
-            >Các tính năng sản phẩm * (Sau mỗi tính năng cách ra và gõ -
+            >Các tính năng sản phẩm * (Sau mỗi tính năng cách ra và gõ .
             )</mat-label
           >
           <mat-form-field
@@ -148,7 +148,19 @@
           </mat-form-field>
 
           <!-- ROW 5 -->
-          <input type="file" formControlName="image" />
+
+          <input
+            type="file"
+            (change)="onFileSelected($event)"
+            formControlName="image"
+          />
+          <img
+            [src]="imageUrl"
+            alt="Product Image"
+            [style.height.px]="'200'"
+            [style.width.px]="'200'"
+            *ngIf="imageUrl"
+          />
         </div>
 
         <!-- RIGHT -->
@@ -161,11 +173,15 @@
             appearance="outline"
           >
             <div class="flex">
+              <!-- Trong file component.html -->
+              <!-- Trong file component.html -->
               <input
                 matInput
-                placeholder="0,00"
                 formControlName="price"
                 type="text"
+                placeholder="0,00"
+                [value]="addProductForm.get('price').value | priceFormat"
+                (input)="onPriceInput($event)"
               />
               VNĐ
             </div>
@@ -184,9 +200,13 @@
             <div class="flex">
               <input
                 matInput
-                placeholder="0,00"
                 formControlName="discountPrice"
                 type="text"
+                placeholder="0,00"
+                [value]="
+                  addProductForm.get('discountPrice').value | priceFormat
+                "
+                (input)="onDiscountPriceInput($event)"
               />
               VNĐ
             </div>
@@ -250,7 +270,14 @@
       </div>
 
       <div class="btn-submit flex">
-        <button type="submit">Xác nhận</button>
+        <button
+          type="submit"
+          mat-stroked-button
+          (click)="openSnackBar('Thành công')"
+          [disabled]="addProductForm.invalid"
+        >
+          Xác nhận
+        </button>
         <button [routerLink]="'/admin/products'">Quay lại</button>
       </div>
     </form>

@@ -6,7 +6,6 @@ import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { PopupEditSuccessComponent } from 'src/app/components/popup-edit-success/popup-edit-success.component';
 import { ProductService } from 'src/app/services/product.service';
-import * as CircularJSON from 'circular-json';
 
 @Component({
   selector: 'app-edit-product-dialog',

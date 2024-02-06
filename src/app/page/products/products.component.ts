@@ -75,8 +75,8 @@ export class ProductsComponent implements OnInit {
       // Add the product to the cart with count information
       this.cartService.addToCart(selectedProduct, this.count);
 
-      // Update the quantity property in the local products array
-      selectedProduct.quantity = this.count;
+      // Update the quanity property in the local products array
+      selectedProduct.quanity = this.count;
     }
     alert('Thêm sản phẩm thành công');
   }

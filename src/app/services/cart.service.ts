@@ -25,19 +25,19 @@ export class CartService {
     this.updateCountItemsSubject();
   }
 
-  addToCart(product: any, quantity: number): void {
+  addToCart(product: any, quanity: number): void {
     const existingItem = this.cartItems.find(
       (item) => item.productId === product._id
     );
 
     if (existingItem) {
-      // If the item already exists in the cart, update the quantity
-      existingItem.quantity += quantity;
+      // If the item already exists in the cart, update the quanity
+      existingItem.quanity += quanity;
     } else {
       // If the item doesn't exist, add a new item to the cart
       const newItem = {
         productId: product._id,
-        quantity: quantity,
+        quanity: quanity,
         title: product.title,
         price: product.price,
         imageUrl: product.imageUrl,

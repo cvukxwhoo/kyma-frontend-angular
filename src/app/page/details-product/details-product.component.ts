@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { CookiesService } from 'src/app/services/cookies.service';
 import { ActivatedRoute } from '@angular/router';
 import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
+import { CartService } from 'src/app/services/cart.service';
+import { NgForm } from '@angular/forms';
 
 interface Product {
   _id: string;
@@ -29,7 +31,7 @@ interface Brand {
   templateUrl: './details-product.component.html',
   styleUrls: ['./details-product.component.scss'],
 })
-export class DetailsProductComponent {
+export class DetailsProductComponent implements OnInit {
   product: Product;
   productId: string;
 
@@ -37,7 +39,8 @@ export class DetailsProductComponent {
     private productService: ProductService,
     private router: Router,
     private cookiesService: CookiesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {

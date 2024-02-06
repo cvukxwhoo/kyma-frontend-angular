@@ -78,19 +78,27 @@
         </tbody>
       </table>
       <form class="attribute-form">
-        <input type="number" [defaultValue]="1" />
+        <input
+          type="number"
+          [defaultValue]="1"
+          name="quantity"
+          [max]="product.quanities"
+          min="1"
+        />
         <br />
-        <button>Mua Hàng</button>
+        <button [style.border-radius.px]="'5'">Mua Hàng</button>
       </form>
     </div>
   </div>
 
   <!-- Features -->
-  <div class="salient-features">
-    <div class="item-title">Tính năng nổi bật</div>
+  <div [style.margin-top.px]="'20px'" class="salient-features">
+    <div class="item-title">
+      <strong><h1>TÍNH NĂNG NỔI BẬT</h1></strong>
+    </div>
     <ul class="features-list">
-      <li class="features-item">
-        <p>{{ product.features }}</p>
+      <li *ngFor="let features of product.features" class="features-item">
+        <p>{{ features }}</p>
       </li>
     </ul>
   </div>

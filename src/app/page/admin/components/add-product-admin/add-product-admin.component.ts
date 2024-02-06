@@ -5,6 +5,8 @@ import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
 import { PopupEditSuccessComponent } from 'src/app/components/popup-edit-success/popup-edit-success.component';
 import { ProductService } from 'src/app/services/product.service';
 import { BrandService } from 'src/app/services/brand.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-product-admin',
@@ -17,12 +19,15 @@ export class AddProductAdminComponent implements OnInit {
   categories: any[] = [];
   paths: any[] = [];
   brands: any[] = [];
+  imageUrl: string = '';
+  durationInSeconds = 5;
 
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
     private productService: ProductService,
-    private brandService: BrandService
+    private brandService: BrandService,
+    private _snackBar: MatSnackBar
   ) {
     this.createFormAdd();
   }
@@ -61,7 +66,7 @@ export class AddProductAdminComponent implements OnInit {
       origin: [''],
       brandId: [''],
       features: ['', [Validators.required]],
-      image: ['', Validators.required],
+      image: [''],
     });
   }
 
@@ -131,44 +136,63 @@ export class AddProductAdminComponent implements OnInit {
   }
 
   onFileSelected(event: any): void {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.addProductForm.patchValue({ image: file });
-    this.selectedFileName = file ? file.name : ''; // Set or reset the selected file name
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      };
+
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
+
+  // Price Format Price Input
+  onPriceInput(event: Event): void {
+    const inputValue = (event.target as HTMLInputElement).value.replace(
+      /[^\d.]/g,
+      ''
+    );
+    this.addProductForm.get('price').setValue(parseFloat(inputValue));
+  }
+
+  formatPrice(value: string): string {
+    // Định dạng giá trị theo định dạng tiền tệ của Việt Nam
+    // Ví dụ: 100000 -> 100,000 VNĐ
+    return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  // Price Format Discount Price Input
+  onDiscountPriceInput(event: any): void {
+    const inputValue = event.target.value.replace(/[^\d.]/g, ''); // Lọc chỉ giữ lại số và dấu chấm
+    this.addProductForm.get('discountPrice').setValue(parseFloat(inputValue));
+  }
+
+  // Open Snack Bar With Submit
+  openSnackBar(action: string) {
+    this._snackBar.openFromComponent(PopupEditSuccessComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 
   onSubmit(): void {
-    // const formData = new FormData();
-    // formData.append('title', this.addProductForm.get('title').value);
-    // formData.append('code', this.addProductForm.get('code').value);
-    // formData.append('quanities', this.addProductForm.get('quanities').value);
-    // formData.append('paths', this.addProductForm.get('paths').value);
-    // formData.append('category', this.addProductForm.get('category').value);
-    // formData.append('price', this.addProductForm.get('price').value);
-    // formData.append(
-    //   'discountPrice',
-    //   this.addProductForm.get('discountPrice').value
-    // );
-    // formData.append(
-    //   'warrantyPeriod',
-    //   this.addProductForm.get('warrantyPeriod').value
-    // );
-    // formData.append('origin', this.addProductForm.get('origin').value);
-    // formData.append('brand', this.addProductForm.get('brand').value);
+    if (this.addProductForm.valid) {
+      const formData = new FormData();
+      Object.keys(this.addProductForm.value).forEach((key) => {
+        formData.append(key, this.addProductForm.value[key]);
+      });
+      formData.append('imageUrl', this.imageUrl);
 
-    // formData.append('features', this.addProductForm.get('features').value);
-
-    // formData.append('image', this.addProductForm.get('image').value);
-    const formData = this.addProductForm.value;
-    console.log(formData);
-
-    this.productService.createProduct(formData).subscribe({
-      next: (res) => {
-        console.log('res:', res);
-      },
-      error: (error) => {
-        console.error('Error creating product:', error);
-        // Handle error, show user feedback, or log appropriately
-      },
-    });
+      this.productService.createProduct(formData).subscribe({
+        next: (res) => {
+          console.log('res:', res);
+          this.addProductForm.reset();
+        },
+        error: (error) => {
+          console.error('Error creating product:', error);
+          // Handle error, show user feedback, or log appropriately
+        },
+      });
+    }
   }
 }
