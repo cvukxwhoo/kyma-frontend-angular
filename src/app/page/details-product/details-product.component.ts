@@ -34,6 +34,8 @@ interface Brand {
 export class DetailsProductComponent implements OnInit {
   product: Product;
   productId: string;
+  count: number = 0;
+  cartItems: any[] = [];
 
   constructor(
     private productService: ProductService,
@@ -48,6 +50,10 @@ export class DetailsProductComponent implements OnInit {
       this.productId = params['productId'];
       // Fetch the product by its ID
       this.getProductById();
+    });
+
+    this.cartService.cartItems$.subscribe((cartItems) => {
+      this.cartItems = cartItems;
     });
   }
 

@@ -38,7 +38,7 @@ export class CartComponent implements OnInit {
   getTotalPrice(): number {
     // Calculate the total price
     return this.cartItems.reduce((accumulator, item) => {
-      return accumulator + item.price * item.quantity;
+      return accumulator + item.price * item.quanity;
     }, 0);
   }
 
@@ -52,7 +52,7 @@ export class CartComponent implements OnInit {
 
     if (selectedProduct) {
       // Increment the count
-      selectedProduct.quantity++;
+      selectedProduct.quanity++;
 
       // Update the local storage with the modified array
       localStorage.setItem('cart', JSON.stringify(this.cartItems));
@@ -69,7 +69,7 @@ export class CartComponent implements OnInit {
 
     if (selectedProduct) {
       // Increment the count
-      selectedProduct.quantity = Math.max(1, selectedProduct.quantity - 1);
+      selectedProduct.quanity = Math.max(1, selectedProduct.quanity - 1);
     }
   }
 
@@ -81,6 +81,7 @@ export class CartComponent implements OnInit {
     );
 
     if (selectedProductIndex !== -1) {
+      selectedProductIndex.quanity = 0;
       this.cartItems.splice(selectedProductIndex, 1);
 
       // Update the local storage with the modified array
