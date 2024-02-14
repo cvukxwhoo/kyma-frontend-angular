@@ -11,13 +11,6 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
 
-interface CartItem {
-  productId: string;
-  quantity: string;
-  name: string;
-  price: number;
-}
-
 @Component({
   selector: 'app-header-top',
   templateUrl: './header-top.component.html',

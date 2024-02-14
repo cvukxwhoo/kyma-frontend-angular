@@ -12,7 +12,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cate-product.component.scss'],
 })
 export class CateProductComponent implements OnInit {
-  quanity: number;
+  quanities: number;
   categoryName: string;
   count: number = 0;
   products: any[];
@@ -31,9 +31,6 @@ export class CateProductComponent implements OnInit {
       this.cartItems = cartItems;
     });
 
-    this.cartService.countItems$.subscribe((count) => {
-      this.count = count;
-    });
     this.route.params.subscribe((params) => {
       this.categoryName = params['categoryName'];
       // Fetch the product by its Name
@@ -61,39 +58,19 @@ export class CateProductComponent implements OnInit {
     this.router.navigate(['/products/details', productId]);
   }
 
-  // addToCart(event: Event, productId: string) {
-  //   this.count++;
-  //   // Prevent the default behavior of the button (form submission, page reload)
-  //   event.preventDefault();
-
-  //   const selectedProduct = this.products.find(
-  //     (product) => product._id === productId
-  //   );
-
-  //   if (selectedProduct) {
-  //     this.cartService.addToCart(selectedProduct);
-  //     // Update the quanity property in the local products array
-  //     selectedProduct.quanity = this.count;
-  //   }
   // }
 
   addToCart(event: Event, productId: string) {
-    // Prevent the default behavior of the button (form submission, page reload)
-    event.preventDefault();
-
     const selectedProduct = this.products.find(
       (product) => product._id === productId
     );
 
     if (selectedProduct) {
-      // Increment the count
-      this.count++;
-
       // Add the product to the cart with count information
       this.cartService.addToCart(selectedProduct, this.count);
 
-      // Update the quanity property in the local products array
-      selectedProduct.quanity = this.count;
+      // Update the quanities property in the local products array
+      selectedProduct.quanities = this.count;
     }
 
     alert('Thêm sản phẩm thành công');

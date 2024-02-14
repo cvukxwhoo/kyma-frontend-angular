@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { faTrash, faCalendarXmark } from '@fortawesome/free-solid-svg-icons';
 import { BillService } from 'src/app/services/bill.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-cart',
@@ -26,7 +27,8 @@ export class CartComponent implements OnInit {
     private cookiesService: CookiesService,
     private route: ActivatedRoute,
     private cartService: CartService,
-    private billService: BillService
+    private billService: BillService,
+    private cookieService: CookieService
   ) {}
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe((cartItems) => {
@@ -38,7 +40,10 @@ export class CartComponent implements OnInit {
   getTotalPrice(): number {
     // Calculate the total price
     return this.cartItems.reduce((accumulator, item) => {
-      return accumulator + item.price * item.quanity;
+      return (
+        accumulator + item.discountPrice * item.quanities ||
+        accumulator + item.price * item.quanities
+      );
     }, 0);
   }
 
@@ -52,7 +57,7 @@ export class CartComponent implements OnInit {
 
     if (selectedProduct) {
       // Increment the count
-      selectedProduct.quanity++;
+      selectedProduct.quanities++;
 
       // Update the local storage with the modified array
       localStorage.setItem('cart', JSON.stringify(this.cartItems));
@@ -69,24 +74,25 @@ export class CartComponent implements OnInit {
 
     if (selectedProduct) {
       // Increment the count
-      selectedProduct.quanity = Math.max(1, selectedProduct.quanity - 1);
+      selectedProduct.quanities = Math.max(1, selectedProduct.quanities - 1);
     }
   }
 
   deleteEachItem(event: Event, productId: string) {
-    event.preventDefault();
+    // const selectedProduct = this.cartItems.find(
+    //   (product) => product.productId === productId
+    // );
 
-    const selectedProductIndex = this.cartItems.find(
-      (product) => product.productId === productId
+    // if (selectedProduct) {
+    //   this.cartItems.splice(selectedProduct, 1);
+    // }
+    // localStorage.setItem('cart', JSON.stringify(this.cartItems));
+
+    this.cartItems = this.cartItems.filter(
+      (product) => product.productId !== productId
     );
 
-    if (selectedProductIndex !== -1) {
-      selectedProductIndex.quanity = 0;
-      this.cartItems.splice(selectedProductIndex, 1);
-
-      // Update the local storage with the modified array
-      localStorage.setItem('cart', JSON.stringify(this.cartItems));
-    }
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
 
     alert('Xoá sản phẩm thành công');
   }
@@ -105,7 +111,9 @@ export class CartComponent implements OnInit {
     console.log('Form data from child component:', formData);
 
     // Retrieve userId from local storage
-    const userId: string | null = localStorage.getItem('userId');
+    const userId: string | null = decodeURIComponent(
+      this.cookieService.get('token')
+    );
 
     // Retrieve products from local storage
     const products: any[] = JSON.parse(localStorage.getItem('cart')) || [];

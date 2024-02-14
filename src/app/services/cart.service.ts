@@ -6,40 +6,33 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CartService {
   private cartKey = 'cart';
-  private countKey = 'count';
   private cartItems: any[] = [];
-  private countItems: number = 0;
 
   private cartItemsSubject = new BehaviorSubject<any[]>([]);
   @Output() cartItems$ = this.cartItemsSubject.asObservable();
-
-  private countItemsSubject = new BehaviorSubject<any>('');
-  countItems$ = this.countItemsSubject.asObservable();
 
   constructor() {
     // Initialize cartItems from localStorage on service instantiation
     this.cartItems = this.getCartItemsFromLocalStorage();
     this.updateCartItemsSubject();
-
-    this.countItems = this.getCountItemsFromLocalStorage();
-    this.updateCountItemsSubject();
   }
 
-  addToCart(product: any, quanity: number): void {
+  addToCart(product: any, quanities: number): void {
     const existingItem = this.cartItems.find(
       (item) => item.productId === product._id
     );
 
     if (existingItem) {
-      // If the item already exists in the cart, update the quanity
-      existingItem.quanity += quanity;
+      // If the item already exists in the cart, update the quanities
+      existingItem.quanities++;
     } else {
       // If the item doesn't exist, add a new item to the cart
       const newItem = {
         productId: product._id,
-        quanity: quanity,
+        quanities: 1,
         title: product.title,
         price: product.price,
+        discountPrice: product.discountPrice,
         imageUrl: product.imageUrl,
         // Add other product details as needed
       };
@@ -50,21 +43,14 @@ export class CartService {
     // Update cart items in localStorage and BehaviorSubject
     this.updateLocalStorage();
     this.updateCartItemsSubject();
-    this.updateCountItemsSubject();
   }
 
   updateCartItemsSubject(): void {
     this.cartItemsSubject.next([...this.cartItems]);
   }
 
-  updateCountItemsSubject(): void {
-    this.countItemsSubject.next(this.countItems);
-  }
-
   private updateLocalStorage(): void {
     localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
-    // Save the count to localStorage
-    localStorage.setItem(this.countKey, JSON.stringify(this.countItems));
   }
 
   private getCartItemsFromLocalStorage(): any[] {
@@ -79,21 +65,6 @@ export class CartService {
     } catch (error) {
       console.error('Error parsing JSON:', error);
       return [];
-    }
-  }
-
-  private getCountItemsFromLocalStorage(): number {
-    const countItemsJson = localStorage.getItem(this.countKey);
-
-    if (!countItemsJson) {
-      return 0;
-    }
-
-    try {
-      return JSON.parse(countItemsJson);
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
-      return 0;
     }
   }
 

@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit {
   products: any[];
   pathName: string;
   cartItems: any[] = [];
-  count: number = 0;
+  quanities: number = 0;
 
   constructor(
     private productService: ProductService,
@@ -31,9 +31,6 @@ export class ProductsComponent implements OnInit {
       this.cartItems = cartItems;
     });
 
-    this.cartService.countItems$.subscribe((count) => {
-      this.count = count;
-    });
     // this.getAllProducts();
     this.route.params.subscribe((params) => {
       this.pathName = params['pathName'];
@@ -61,22 +58,13 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(event: Event, productId: string) {
-    // Prevent the default behavior of the button (form submission, page reload)
-    event.preventDefault();
-
     const selectedProduct = this.products.find(
       (product) => product._id === productId
     );
 
     if (selectedProduct) {
-      // Increment the count
-      this.count++;
-
       // Add the product to the cart with count information
-      this.cartService.addToCart(selectedProduct, this.count);
-
-      // Update the quanity property in the local products array
-      selectedProduct.quanity = this.count;
+      this.cartService.addToCart(selectedProduct, this.quanities);
     }
     alert('Thêm sản phẩm thành công');
   }

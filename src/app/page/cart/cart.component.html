@@ -29,9 +29,21 @@
               <a class="product-name">{{ item.title }}</a>
             </td>
             <td class="price">
-              <strong [style.color]="'red'"
-                >{{ item.price | priceFormat }} VNĐ</strong
-              >
+              <div [style.flex-direction]="'column'" class="flex">
+                <del>
+                  <strong
+                    *ngIf="item.discountPrice != null"
+                    [style.color]="'red'"
+                    >{{ item.price | priceFormat }} VNĐ</strong
+                  >
+                </del>
+                <strong *ngIf="item.discountPrice == null" [style.color]="'red'"
+                  >{{ item.price | priceFormat }} VNĐ</strong
+                >
+                <strong [style.color]="'red'"
+                  >{{ item.discountPrice | priceFormat }} VNĐ</strong
+                >
+              </div>
               <div class="cart-quantity">
                 <button
                   (click)="minusCartQuantity($event, item.productId)"
@@ -39,7 +51,7 @@
                 >
                   -
                 </button>
-                <input type="text" min="1" [value]="item.quanity" />
+                <input type="text" min="1" [value]="item.quanities" />
                 <button
                   (click)="plusCartQuantity($event, item.productId)"
                   class="cart-qty-plus"

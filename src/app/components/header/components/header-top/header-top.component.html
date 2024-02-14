@@ -79,23 +79,25 @@
           <div class="cart-title">Sản phẩm trong giỏ hàng</div>
           <ul class="cart-list">
             <li class="flex" *ngFor="let item of cartItems">
-              <img [src]="item.imageUrl" alt="" />
-              <div>
-                <div
-                  [style.flex-direction]="'column'"
-                  class="cart-list-text flex"
-                >
-                  {{ item.title }}
+              <ng-container *ngIf="item.quanities > 0">
+                <img [src]="item.imageUrl" alt="" />
+                <div>
+                  <div
+                    [style.flex-direction]="'column'"
+                    class="cart-list-text flex"
+                  >
+                    {{ item.title }}
+                  </div>
+                  <p
+                    [style.display]="'inline'"
+                    [style.color]="'#f7941d'"
+                    class="cart-list-text flex"
+                  >
+                    {{ item.price | priceFormat }} VNĐ
+                  </p>
+                  <span>x {{ item.quanities }}</span>
                 </div>
-                <p
-                  [style.display]="'inline'"
-                  [style.color]="'#f7941d'"
-                  class="cart-list-text flex"
-                >
-                  {{ item.price | priceFormat }} VNĐ
-                </p>
-                <span>x {{ item.quanity }}</span>
-              </div>
+              </ng-container>
             </li>
           </ul>
 
