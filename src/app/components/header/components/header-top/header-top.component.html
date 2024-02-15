@@ -50,8 +50,8 @@
 
           <!-- ĐÃ ĐĂNG NHẬP -->
           <ul *ngIf="!isSignHidden && isLoggedIn" class="signInHidden flex">
-            <li [routerLink]="['/change-password']">
-              <a href="">Đổi mật khẩu</a>
+            <li>
+              <a href="change-password">Đổi mật khẩu</a>
             </li>
             <li (click)="SignOut()"><a href="">Đăng xuất</a></li>
           </ul>
@@ -93,7 +93,7 @@
                     [style.color]="'#f7941d'"
                     class="cart-list-text flex"
                   >
-                    {{ item.price | priceFormat }} VNĐ
+                    {{ item.discountPrice || item.price | priceFormat }} VNĐ
                   </p>
                   <span>x {{ item.quanities }}</span>
                 </div>

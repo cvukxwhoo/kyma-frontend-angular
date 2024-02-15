@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { Router } from '@angular/router';
 import { CookiesService } from 'src/app/services/cookies.service';
@@ -18,14 +18,10 @@ import { CookieService } from 'ngx-cookie-service';
 export class CartComponent implements OnInit {
   faTrash = faTrash;
   faCalendarXmark = faCalendarXmark;
-  cartItems: any[] = [];
+  @Output() cartItems: any[] = [];
   userId: string;
 
   constructor(
-    private productService: ProductService,
-    private router: Router,
-    private cookiesService: CookiesService,
-    private route: ActivatedRoute,
     private cartService: CartService,
     private billService: BillService,
     private cookieService: CookieService
@@ -79,20 +75,9 @@ export class CartComponent implements OnInit {
   }
 
   deleteEachItem(event: Event, productId: string) {
-    // const selectedProduct = this.cartItems.find(
-    //   (product) => product.productId === productId
-    // );
-
-    // if (selectedProduct) {
-    //   this.cartItems.splice(selectedProduct, 1);
-    // }
-    // localStorage.setItem('cart', JSON.stringify(this.cartItems));
-
-    this.cartItems = this.cartItems.filter(
-      (product) => product.productId !== productId
-    );
-
-    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+    this.cartService.deleteEachProductFromCart(productId);
+    this.cartItems = this.cartService.getCart();
+    location.reload();
 
     alert('Xoá sản phẩm thành công');
   }

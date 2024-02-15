@@ -17,6 +17,10 @@ export class CartService {
     this.updateCartItemsSubject();
   }
 
+  getCart() {
+    return JSON.parse(localStorage.getItem(this.cartKey)) || [];
+  }
+
   addToCart(product: any, quanities: number): void {
     const existingItem = this.cartItems.find(
       (item) => item.productId === product._id
@@ -68,7 +72,15 @@ export class CartService {
     }
   }
 
+  deleteEachProductFromCart(productId: string) {
+    let cart = this.getCart();
+    cart = cart.filter((item) => item.productId !== productId);
+
+    localStorage.setItem(this.cartKey, JSON.stringify(cart));
+    this.updateCartItemsSubject();
+  }
+
   removeLocalStorage() {
-    localStorage.removeItem('cart');
+    localStorage.removeItem(this.cartKey);
   }
 }

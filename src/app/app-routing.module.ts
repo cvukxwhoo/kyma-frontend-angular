@@ -18,8 +18,8 @@ import { ProductAdminComponent } from './page/admin/components/product-admin/pro
 import { AddProductAdminComponent } from './page/admin/components/add-product-admin/add-product-admin.component';
 import { BillsComponent } from './page/admin/components/bills/bills.component';
 import { BillDetailsComponent } from './page/admin/components/bill-details/bill-details.component';
+import { TypeProductComponent } from './page/home/components/type-product/type-product.component';
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',
@@ -48,25 +48,39 @@ const routes: Routes = [
       },
     ],
   },
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      {
+        path: '',
+        component: TypeProductComponent,
+      },
+      {
+        path: 'products/:categoryName',
+        component: CateProductComponent,
+      },
+      {
+        path: 'products/path/:pathName',
+        component: ProductsComponent,
+      },
+      {
+        path: 'cart',
+        component: CartComponent,
+        canActivate: [AuthGuardService],
+      },
+      {
+        path: 'products/details/:productId',
+        component: DetailsProductComponent,
+      },
+      {
+        path: 'change-password',
+        component: ChangePasswordComponent,
+        canActivate: [AuthGuardService],
+      },
+    ],
+  },
 
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuardService] },
-  {
-    path: 'products/path/:pathName',
-    component: ProductsComponent,
-  },
-  {
-    path: 'products/:categoryName',
-    component: CateProductComponent,
-  },
-  {
-    path: 'products/details/:productId',
-    component: DetailsProductComponent,
-  },
-  {
-    path: 'change-password',
-    component: ChangePasswordComponent,
-    canActivate: [AuthGuardService],
-  },
   {
     path: '**',
     component: NotFoundComponent,

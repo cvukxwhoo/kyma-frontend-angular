@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
-import { CookiesService } from 'src/app/services/cookies.service';
 import { ActivatedRoute } from '@angular/router';
-import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
 import { CartService } from 'src/app/services/cart.service';
-import { NgForm } from '@angular/forms';
 
 interface Product {
   _id: string;
@@ -34,13 +30,10 @@ interface Brand {
 export class DetailsProductComponent implements OnInit {
   product: Product;
   productId: string;
-  count: number = 0;
   cartItems: any[] = [];
 
   constructor(
     private productService: ProductService,
-    private router: Router,
-    private cookiesService: CookiesService,
     private route: ActivatedRoute,
     private cartService: CartService
   ) {}

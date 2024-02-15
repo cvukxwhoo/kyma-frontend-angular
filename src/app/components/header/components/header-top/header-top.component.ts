@@ -31,8 +31,6 @@ export class HeaderTopComponent implements OnInit {
   constructor(
     private router: Router,
     private cookieService: CookieService,
-    private userService: UserService,
-    private route: ActivatedRoute,
     private cartService: CartService,
     private authService: AuthService,
     private searchService: SearchService
