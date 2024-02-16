@@ -9,6 +9,8 @@ import { CartService } from 'src/app/services/cart.service';
 import { faTrash, faCalendarXmark } from '@fortawesome/free-solid-svg-icons';
 import { BillService } from 'src/app/services/bill.service';
 import { CookieService } from 'ngx-cookie-service';
+import { PopupEditSuccessComponent } from 'src/app/components/popup-edit-success/popup-edit-success.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +20,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class CartComponent implements OnInit {
   faTrash = faTrash;
   faCalendarXmark = faCalendarXmark;
-  @Output() cartItems: any[] = [];
+  cartItems: any[] = [];
   userId: string;
 
   constructor(
@@ -93,16 +95,6 @@ export class CartComponent implements OnInit {
 
   // Assuming this is part of your Angular component or service
   handleFormSubmission(formData: any) {
-    console.log('Form data from child component:', formData);
-
-    // Retrieve userId from local storage
-    const userId: string | null = decodeURIComponent(
-      this.cookieService.get('token')
-    );
-
-    // Retrieve products from local storage
-    const products: any[] = JSON.parse(localStorage.getItem('cart')) || [];
-
     const orderData = {
       formData,
     };
@@ -111,7 +103,6 @@ export class CartComponent implements OnInit {
     this.billService.postOrder(orderData).subscribe({
       next: (response) => {
         console.log('Order submitted successfully!', response);
-        // Add any additional logic you need after a successful order submission
       },
       error: (error) => {
         console.error('Error submitting order:', error);

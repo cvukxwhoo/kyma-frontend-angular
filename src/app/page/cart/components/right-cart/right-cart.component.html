@@ -224,6 +224,12 @@
 
     <!-- END INVOICE -->
 
-    <button type="submit" [disabled]="paymentForm.invalid">Submit</button>
+    <button
+      type="submit"
+      [disabled]="paymentForm.invalid"
+      (click)="openSnackBar('Thành công')"
+    >
+      Submit
+    </button>
   </form>
 </div>

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { BillService } from 'src/app/services/bill.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PopupEditSuccessComponent } from 'src/app/components/popup-edit-success/popup-edit-success.component';
 import { CartService } from 'src/app/services/cart.service';
-import { CookiesService } from 'src/app/services/cookies.service';
 
 @Component({
   selector: 'app-right-cart',
@@ -13,14 +13,13 @@ export class RightCartComponent implements OnInit {
   paymentForm: FormGroup;
   cartItems: any[] = [];
   userId: string | null = '';
-
+  durationInSeconds = 5;
   @Output() submitForm: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
     private cartService: CartService,
-    private billService: BillService,
-    private cookiesService: CookiesService
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -132,6 +131,12 @@ export class RightCartComponent implements OnInit {
         bankingControl.disable();
         atmControl.disable();
       }
+    });
+  }
+
+  openSnackBar(action: string) {
+    this._snackBar.openFromComponent(PopupEditSuccessComponent, {
+      duration: this.durationInSeconds * 1000,
     });
   }
 

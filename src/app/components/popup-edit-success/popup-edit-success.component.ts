@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSnackBarRef } from '@angular/material/snack-bar';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
