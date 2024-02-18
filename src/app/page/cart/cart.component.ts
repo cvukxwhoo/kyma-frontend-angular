@@ -25,9 +25,14 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private billService: BillService,
-    private cookieService: CookieService
-  ) {}
+    private billService: BillService
+  ) {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      this.cartItems = JSON.parse(storedCart);
+    }
+  }
+
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe((cartItems) => {
       // Do something with the updated cart items
@@ -78,10 +83,11 @@ export class CartComponent implements OnInit {
 
   deleteEachItem(event: Event, productId: string) {
     this.cartService.deleteEachProductFromCart(productId);
-    this.cartItems = this.cartService.getCart();
-    location.reload();
+    this.cartItems = this.cartService.getCartItemsFromLocalStorage();
 
     alert('Xoá sản phẩm thành công');
+
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
   }
 
   deleteAllItems() {

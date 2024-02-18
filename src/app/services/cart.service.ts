@@ -1,15 +1,17 @@
-import { Injectable, Output } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private cartKey = 'cart';
   private cartItems: any[] = [];
 
   private cartItemsSubject = new BehaviorSubject<any[]>([]);
-  @Output() cartItems$ = this.cartItemsSubject.asObservable();
+  cartItems$ = this.cartItemsSubject.asObservable();
+
+  private quantitiesSubject = new BehaviorSubject<number>(0);
+  quanities$ = this.quantitiesSubject.asObservable();
 
   constructor() {
     // Initialize cartItems from localStorage on service instantiation
@@ -17,18 +19,23 @@ export class CartService {
     this.updateCartItemsSubject();
   }
 
-  getCart() {
-    return JSON.parse(localStorage.getItem(this.cartKey)) || [];
+  updateLocalStorage(): void {
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
   }
 
-  addToCart(product: any, quanities: number): void {
+  getCartItemsFromLocalStorage(): any[] {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  }
+
+  addToCart(product: any): void {
     const existingItem = this.cartItems.find(
       (item) => item.productId === product._id
     );
 
-    if (existingItem) {
+    if (existingItem !== undefined) {
       // If the item already exists in the cart, update the quanities
-      existingItem.quanities++;
+      existingItem.quanities += 1;
     } else {
       // If the item doesn't exist, add a new item to the cart
       const newItem = {
@@ -38,7 +45,6 @@ export class CartService {
         price: product.price,
         discountPrice: product.discountPrice,
         imageUrl: product.imageUrl,
-        // Add other product details as needed
       };
 
       this.cartItems.push(newItem);
@@ -53,34 +59,20 @@ export class CartService {
     this.cartItemsSubject.next([...this.cartItems]);
   }
 
-  private updateLocalStorage(): void {
-    localStorage.setItem(this.cartKey, JSON.stringify(this.cartItems));
-  }
-
-  private getCartItemsFromLocalStorage(): any[] {
-    const cartItemsJson = localStorage.getItem(this.cartKey);
-
-    if (!cartItemsJson) {
-      return [];
-    }
-
-    try {
-      return JSON.parse(cartItemsJson);
-    } catch (error) {
-      console.error('Error parsing JSON:', error);
-      return [];
-    }
-  }
-
   deleteEachProductFromCart(productId: string) {
-    let cart = this.getCart();
-    cart = cart.filter((item) => item.productId !== productId);
+    // let cart = this.getCartItemsFromLocalStorage();
+    // cart = cart.filter((item) => item.productId !== productId);
 
-    localStorage.setItem(this.cartKey, JSON.stringify(cart));
+    // localStorage.setItem('cart', JSON.stringify(cart));
+    // this.updateCartItemsSubject();
+    this.cartItems = this.cartItems.filter(
+      (item) => item.productId !== productId
+    );
+    this.updateLocalStorage();
     this.updateCartItemsSubject();
   }
 
   removeLocalStorage() {
-    localStorage.removeItem(this.cartKey);
+    localStorage.removeItem('cart');
   }
 }

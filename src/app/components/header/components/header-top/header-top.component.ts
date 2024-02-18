@@ -1,12 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookiesService } from 'src/app/services/cookies.service';
-import { UserService } from 'src/app/services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { PriceFormatPipe } from 'src/app/pipe/price-format.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpClient } from '@angular/common/http';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { SearchService } from 'src/app/services/search.service';
@@ -24,7 +20,7 @@ export class HeaderTopComponent implements OnInit {
   cartItems: any[] = [];
 
   // SEARCH TEXT
-  searchTerm: string = '';
+  searchQuery: string = '';
   searchResults: any[] = [];
   private searchTerms = new Subject<string>();
 
@@ -34,9 +30,7 @@ export class HeaderTopComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private searchService: SearchService
-  ) {
-    this.setupSearch();
-  }
+  ) {}
 
   ngOnInit(): void {
     // Check if token exists
@@ -45,21 +39,15 @@ export class HeaderTopComponent implements OnInit {
       // Do something with the updated cart items
       this.cartItems = cartItems;
     });
-  }
 
-  search() {
-    this.searchTerms.next(this.searchTerm);
-    console.log(this.searchTerms);
-  }
-
-  private setupSearch() {
     this.searchTerms
       .pipe(
-        debounceTime(3000), // Adjust the delay time (in milliseconds) as needed
+        debounceTime(300),
         distinctUntilChanged(),
-        switchMap((term: string) => this.searchService.search(term))
+        switchMap((term: string) => this.searchService.searchProducts(term))
       )
       .subscribe((results: any[]) => {
+        console.log(this.searchResults);
         this.searchResults = results;
       });
   }
@@ -80,5 +68,9 @@ export class HeaderTopComponent implements OnInit {
   SignOut(): void {
     this.authService.logout();
     this.router.navigate(['']);
+  }
+
+  onSearch(): void {
+    this.searchTerms.next(this.searchQuery);
   }
 }

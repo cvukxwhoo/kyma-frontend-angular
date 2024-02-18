@@ -47,4 +47,11 @@ export class ProductService {
   createProduct(formData: any): Observable<any> {
     return this.http.post(`${environment.apiUrl}/product/create`, formData);
   }
+
+  // Search Product
+  searchProductsByName(query: string) {
+    return this.http.get<any[]>(
+      `${environment.apiUrl}/products/search?name=${query}`
+    );
+  }
 }

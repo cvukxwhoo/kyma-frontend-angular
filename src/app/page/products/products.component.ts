@@ -5,7 +5,6 @@ import { CookiesService } from 'src/app/services/cookies.service';
 import { PriceFormatPipe } from '../../pipe/price-format.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
-import { CartInfoService } from 'src/app/services/cart-info.service';
 
 @Component({
   selector: 'app-products',
@@ -16,7 +15,6 @@ export class ProductsComponent implements OnInit {
   products: any[];
   pathName: string;
   cartItems: any[] = [];
-  quanities: number = 0;
 
   constructor(
     private productService: ProductService,
@@ -52,20 +50,19 @@ export class ProductsComponent implements OnInit {
   }
 
   navigateToDetails(productId: string) {
-    // Navigate to the details page with the product ID
     this.router.navigate(['/products/details', productId]);
   }
 
-  addToCart(event: Event, productId: string) {
+  addToCart(productId: string) {
     const selectedProduct = this.products.find(
       (product) => product._id === productId
     );
 
     if (selectedProduct) {
-      // Add the product to the cart with count information
-      this.cartService.addToCart(selectedProduct, this.quanities);
+      this.cartService.addToCart(selectedProduct);
+      alert('Thêm sản phẩm thành công');
     }
-    alert('Thêm sản phẩm thành công');
+    this.router.navigate(['/cart']);
   }
 
   // END

@@ -32,10 +32,7 @@
         </div>
         <div class="button-item flex">
           <button [routerLink]="['/cart']" class="buy-button">Mua</button>
-          <button
-            (click)="addToCart($event, product._id)"
-            class="installment-button"
-          >
+          <button (click)="addToCart(product._id)" class="installment-button">
             Thêm
           </button>
         </div>

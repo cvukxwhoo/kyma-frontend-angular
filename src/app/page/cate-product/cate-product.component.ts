@@ -12,9 +12,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cate-product.component.scss'],
 })
 export class CateProductComponent implements OnInit {
-  quanities: number;
   categoryName: string;
-  count: number = 0;
   products: any[];
   cartItems: any[] = [];
 
@@ -54,25 +52,18 @@ export class CateProductComponent implements OnInit {
   }
 
   navigateToDetails(productId: string) {
-    // Navigate to the details page with the product ID
     this.router.navigate(['/products/details', productId]);
   }
 
-  // }
-
-  addToCart(event: Event, productId: string) {
+  addToCart(productId: string) {
     const selectedProduct = this.products.find(
       (product) => product._id === productId
     );
 
     if (selectedProduct) {
-      // Add the product to the cart with count information
-      this.cartService.addToCart(selectedProduct, this.count);
-
-      // Update the quanities property in the local products array
-      selectedProduct.quanities = this.count;
+      this.cartService.addToCart(selectedProduct);
+      alert('Thêm sản phẩm thành công');
     }
-
-    alert('Thêm sản phẩm thành công');
+    this.router.navigate(['/cart']);
   }
 }

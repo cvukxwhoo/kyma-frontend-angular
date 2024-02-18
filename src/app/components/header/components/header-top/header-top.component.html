@@ -10,13 +10,21 @@
     </a>
     <div class="header-search flex">
       <input
-        [(ngModel)]="searchTerm"
+        [(ngModel)]="searchQuery"
         class="header-input-search"
         placeholder="Tìm kiếm"
       />
-      <button (click)="search()" class="header-btn-search" type="submit">
+      <button (click)="onSearch()" class="header-btn-search">
         <mat-icon>search</mat-icon>
       </button>
+
+      <div *ngIf="searchResults.length">
+        <ul>
+          <li *ngFor="let product of searchResults">
+            {{ product.name }}
+          </li>
+        </ul>
+      </div>
     </div>
     <div *ngFor="let result of searchResults">
       {{ result.name }}
