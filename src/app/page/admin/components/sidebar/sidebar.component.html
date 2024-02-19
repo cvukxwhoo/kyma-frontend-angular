@@ -11,40 +11,22 @@
         (click)="handleProductHidden()"
         class="nav-item flex pointer"
         [style.gap]="'10px'"
+        [routerLink]="'products'"
       >
-        <fa-icon [icon]="faChevronDown"></fa-icon>
-        <div class="nav-item-title">Products</div>
+        <div class="nav-item-title">Sản Phẩm</div>
       </a>
       <mat-divider></mat-divider>
-      <ul *ngIf="!isProductHidden" class="product-items">
-        <li [routerLink]="'products'">
-          <div class="nav-item-title">Products</div>
-        </li>
-        <mat-divider></mat-divider>
-        <li [routerLink]="'add-product'">
-          <div class="nav-item-title">Add Products</div>
-        </li>
-        <mat-divider></mat-divider>
-      </ul>
     </div>
     <div class="nav-items">
       <a
         (click)="handleBillHidden()"
         class="nav-item flex pointer"
         [style.gap]="'10px'"
+        [routerLink]="'bills'"
       >
-        <fa-icon [icon]="faChevronDown"></fa-icon>
-        <div class="nav-item-title">Bills</div></a
+        <div class="nav-item-title">Hoá đơn</div></a
       >
       <mat-divider></mat-divider>
-      <ul *ngIf="!isBillHidden" class="product-items">
-        <li [routerLink]="'bills'"><div class="nav-item-title">Bills</div></li>
-        <mat-divider></mat-divider>
-        <li [routerLink]="'bill-details'">
-          <div class="nav-item-title">Bill Details</div>
-        </li>
-        <mat-divider></mat-divider>
-      </ul>
     </div>
   </div>
 </div>

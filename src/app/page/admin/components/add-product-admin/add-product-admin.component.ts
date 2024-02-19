@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 import { BrandService } from 'src/app/services/brand.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-product-admin',
@@ -27,7 +28,8 @@ export class AddProductAdminComponent implements OnInit {
     private categoryService: CategoryService,
     private productService: ProductService,
     private brandService: BrandService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.createFormAdd();
   }
@@ -187,6 +189,7 @@ export class AddProductAdminComponent implements OnInit {
         next: (res) => {
           console.log('res:', res);
           this.addProductForm.reset();
+          this.router.navigate['/products'];
         },
         error: (error) => {
           console.error('Error creating product:', error);

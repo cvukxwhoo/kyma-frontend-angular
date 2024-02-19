@@ -93,9 +93,7 @@ export class LoginComponent implements OnInit {
     this.authService.signIn(email, password).subscribe({
       next: (res) => {
         const token = res.token;
-        const userId = res.userId; // Assuming your API response has a 'token' property
         this.cookieService.set('token', token, 7); // Expires in 1 day
-        localStorage.setItem('userId', userId);
         alert('Login Successfully!');
         this.loginForm.reset();
         this.router.navigate(['']); // Navigate to the home page or user dashboard

@@ -45,6 +45,8 @@ import { EditProductDialog } from './page/admin/components/product-admin/compone
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { PopupEditSuccessComponent } from './components/popup-edit-success/popup-edit-success.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,8 @@ import { PopupEditSuccessComponent } from './components/popup-edit-success/popup
     MatTableModule,
     MatDialogModule,
     MatSnackBarModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

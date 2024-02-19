@@ -4,6 +4,8 @@ import { ProductService } from 'src/app/services/product.service';
 import { CookiesService } from 'src/app/services/cookies.service';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-type-product',
@@ -12,12 +14,15 @@ import { environment } from 'src/environments/environment';
 })
 export class TypeProductComponent implements OnInit {
   listCategory: any[];
+  userId = this.authService.getIdFromToken();
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private cookiesService: CookiesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

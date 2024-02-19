@@ -58,18 +58,6 @@ export class AuthService {
     return !!this.cookieService.get('token');
   }
 
-  // getUserInfoFromToken(token: string) {
-  //   try {
-  //     const token = this.cookieService.get('token');
-  //     const decodedToken: any = jwtDecode(token);
-  //     console.log(decodedToken);
-  //     return decodedToken;
-  //   } catch (error) {
-  //     console.error('Error decoding token:', error);
-  //     return null;
-  //   }
-  // }
-
   getToken(): string | null {
     return this.cookieService.get('token');
   }
@@ -91,7 +79,6 @@ export class AuthService {
   // New method to decode the token and return email
   getIdFromToken(): string | null {
     const userInfo = this.getUserInfoFromToken();
-    console.log('userInfo"', userInfo);
     return userInfo ? userInfo.id : null;
   }
 }

@@ -18,6 +18,13 @@
 
       .nav-item {
         height: 50px;
+        text-decoration: none;
+        color: #000;
+
+        &:hover {
+          text-decoration: underline;
+          color: #ff8400;
+        }
       }
 
       .product-items {

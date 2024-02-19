@@ -61,7 +61,7 @@
             </td>
           </tr>
           <!-- ORIGIN -->
-          <tr>
+          <tr *ngIf="product.origin">
             <td class="table-label">Xuất xứ</td>
             <td class="table-value">
               <span>{{ product.origin }}</span>
